@@ -1,6 +1,6 @@
 <!-- Footer -->
 </div>
-<footer class="text-center basic-color" id="footer">
+<footer class="text-center" id="footer">
     <hr />
     <div class="text-center" id="copyright">
         Copyright © 2022 The Hare Company

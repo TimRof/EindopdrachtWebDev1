@@ -20,7 +20,7 @@ class UserRepository extends Repository
 
             $stmt = $this->connection->prepare($sql);
 
-            return $stmt->execute([$user->name, $user->email, $password_hash]);
+            return $stmt->execute([$user->getName(), $user->getEmail(), $password_hash]);
         }
 
         return false;
@@ -35,10 +35,10 @@ class UserRepository extends Repository
     }
     public function validate($user)
     {
-        if ($user->name == '') {
+        if ($user->getName() == '') {
             $user->errors[] = 'Name is required.';
         }
-        if (filter_var($user->email, FILTER_VALIDATE_EMAIL) === false) {
+        if (filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL) === false) {
             $user->errors[] = 'Invalid email.';
         }
         if ($user->password != $user->password_confirmation) {

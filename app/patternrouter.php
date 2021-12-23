@@ -57,7 +57,11 @@ class PatternRouter
         // dynamically call relevant controller method
         try {
             $controllerObj = new $controllerName;
-            $controllerObj->{$methodName}();
+            if (method_exists($controllerObj, $methodName)) {
+                $controllerObj->{$methodName}();
+            } else {
+                throw new Exception();
+            }
         } catch (Exception $e) {
             http_response_code(404);
             die();

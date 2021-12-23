@@ -23,12 +23,20 @@ class SignUpController extends Controller
         // var_dump($user);
         // echo "<br><br>";
         // var_dump($_POST);
-        if ($userservice->insert($user)) {
-            $this->redirect('/signup/success');
-        } else {
-            $this->redirect('/signup/failed');
+        try {
+            if ($userservice->insert($user)) {
+                $this->redirect('/signup/success');
+            } else {
+                $this->redirect('/signup/failed');
+            }
+        } catch (\Throwable $th) {
+            echo "<br> <br> catchsignup";
+            echo '<pre>';
+            echo $th;
+            var_dump($user);
         }
     }
+
     public function success()
     {
         require __DIR__ . '/../views/signup/success.php';

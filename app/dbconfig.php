@@ -4,4 +4,4 @@ $type = "mysql";
 $servername = "mysql";
 $username = "root";
 $password = "secret123";
-$database = "AppointmentManager";
+$database = "appointment_manager";

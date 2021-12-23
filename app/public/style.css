@@ -4,12 +4,34 @@
   --lightgreen-hover-dark: #77a671;
   --textgray: #27282a;
 }
+a {
+  color: var(--lightgreen);
+}
+a:hover {
+  color: var(--lightgreen-hover-dark);
+}
+a:active {
+  color: var(--lightgreen-hover-light);
+}
+.input-group-text {
+  background-color: var(--lightgreen);
+  color: var(--textgray);
+}
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #c0392b !important;
+}
 .star {
   color: gold;
+}
+.topnavbar {
+  border-bottom: 3px solid rgb(0, 0, 0);
 }
 #homeLogo {
   height: 48px;
   margin-top: -1px;
+}
+.form-group {
+  margin-top: 1em;
 }
 #copyright {
   color: rgba(0, 0, 0, 0.5);
@@ -17,6 +39,7 @@
 .navbar {
   margin-left: 20px;
   margin-right: 20px;
+  border-bottom: 0.5px solid var(--lightgreen);
 }
 .navbar-toggler:focus,
 .navbar-toggler:active,
@@ -56,6 +79,32 @@
   color: var(--lightgreen-hover-dark);
   text-decoration: underline;
 }
+.login_btn {
+  width: 100%;
+}
+.login_btn:focus {
+  box-shadow: none !important;
+  outline: 0px !important;
+}
+.login_container {
+  padding: 0 2rem;
+}
+.form-check-input:checked {
+  background-color: var(--lightgreen);
+  outline: 1px solid var(--lightgreen);
+}
+.form-check-input:checked:focus {
+  box-shadow: 0 0 0 1px var(--lightgreen-hover-light),
+    0 0 0 0.2rem rgba(0, 255, 0, 0.25);
+}
+.form-check-input:focus {
+  box-shadow: 0 0 0 1px var(--lightgreen-hover-dark),
+    0 0 0 0.2rem rgba(0, 0, 0, 0.25);
+}
+.form-check-input:active {
+  background-color: var(--lightgreen);
+}
+
 .basic-color {
   color: var(--textgray);
 }
@@ -153,4 +202,5 @@ hr {
 .error {
   color: red;
   visibility: hidden;
+  margin-left: 10px;
 }

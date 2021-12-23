@@ -8,22 +8,22 @@ include_once __DIR__ . '/../nav.php';
 <!-- Main -->
 
 <h1>Sign Up</h1>
-<form action="signup/create" onsubmit="return validate_form()" method="post" name="signupform">
+<form action="/signup/create" onsubmit="return validate_form()" method="post" name="signupform">
     <div>
         <label for="inputName">Name</label>
-        <input id="inputName" name="name" placeholder="Name" maxlength="50" autofocus><span id="nameError" class="error"> Name can not be empty.</span>
+        <input id="inputName" name="name" placeholder="Name" maxlength="50" autofocus><span id="nameError" class="error">Name can not be empty.</span>
     </div>
     <div>
         <label for="inputEmail">Email</label>
-        <input id="inputEmail" name="email" placeholder="Email address" maxlength="200"><span id="emailError" class="error"> Email not valid.</span>
+        <input id="inputEmail" name="email" placeholder="Email address" maxlength="200"><span id="emailError" class="error">Email not valid.</span>
     </div>
     <div>
         <label for="inputPassword">Password</label>
-        <input type="password" id="inputPassword" name="password" placeholder="Password" maxlength="128"><span id="passwordlngthError" class="error"> Password has to be at least 6 characters.</span>
+        <input type="password" id="inputPassword" name="password" placeholder="Password" maxlength="128"><span id="passwordlngthError" class="error">Password has to be at least 6 characters.</span>
     </div>
     <div>
         <label for="inputPasswordConfirmation">Repeat password</label>
-        <input type="password" id="inputPasswordConfirmation" name="password_confirmation" placeholder="Repeat password" maxlength="128"><span id="passwordmtchError" class="error"> Passwords do not match.</span>
+        <input type="password" id="inputPasswordConfirmation" name="password_confirmation" placeholder="Repeat password" maxlength="128"><span id="passwordmtchError" class="error">Passwords do not match.</span>
     </div>
     <button class="btn btn-primary rounded-pill" type="submit">Sign up</button>
     <script>
