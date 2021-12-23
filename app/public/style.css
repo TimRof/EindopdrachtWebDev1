@@ -1,0 +1,156 @@
+:root {
+  --lightgreen: #95d049;
+  --lightgreen-hover-light: #a5d764;
+  --lightgreen-hover-dark: #77a671;
+  --textgray: #27282a;
+}
+.star {
+  color: gold;
+}
+#homeLogo {
+  height: 48px;
+  margin-top: -1px;
+}
+#copyright {
+  color: rgba(0, 0, 0, 0.5);
+}
+.navbar {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+  outline: none;
+  box-shadow: none;
+}
+.btn-primary {
+  background-color: var(--lightgreen);
+  border-color: var(--lightgreen);
+  color: var(--textgray);
+}
+.btn-primary:hover {
+  background-color: var(--lightgreen-hover-light);
+  border-color: var(--lightgreen-hover-light);
+  color: var(--textgray);
+}
+.btn-primary:focus,
+.btn-primary:focus {
+  background-color: var(--lightgreen-hover-light);
+  border-color: var(--lightgreen-hover-light);
+  color: var(--textgray);
+  outline: none;
+}
+.title-href {
+  color: var(--textgray);
+  text-decoration: none;
+}
+.badge {
+  background-color: var(--lightgreen);
+}
+.login-btn {
+  color: var(--lightgreen);
+  text-decoration: none;
+}
+.login-btn:hover {
+  color: var(--lightgreen-hover-dark);
+  text-decoration: underline;
+}
+.basic-color {
+  color: var(--textgray);
+}
+hr {
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  border: 0;
+  border-top: 1px solid var(--textgray);
+}
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 2.5rem; /* Footer height */
+}
+#footer {
+  position: absolute;
+  background-color: white;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem; /* Footer height */
+}
+
+/* begin source: https://github.com/startbootstrap/startbootstrap-freelancer */
+.divider-custom {
+  margin: 1.25rem 0 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.divider-custom .divider-custom-line {
+  width: 100%;
+  max-width: 7rem;
+  height: 0.25rem;
+  background-color: #2c3e50;
+  border-radius: 1rem;
+  border-color: #2c3e50;
+}
+.divider-custom .divider-custom-line:first-child {
+  margin-right: 1rem;
+}
+.divider-custom .divider-custom-line:last-child {
+  margin-left: 1rem;
+}
+.divider-custom .divider-custom-icon {
+  color: var(--textgray);
+  font-size: 2rem;
+}
+.divider-custom.divider-light .divider-custom-line {
+  background-color: var(--textgray);
+}
+.divider-custom.divider-light .divider-custom-icon {
+  color: var(--textgray);
+}
+.row {
+  text-align: center;
+}
+/* end source: https://github.com/startbootstrap/startbootstrap-freelancer */
+.review {
+  border-radius: 20px;
+  margin: 10px;
+  display: inline-block;
+  float: none !important;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+}
+.photo {
+  border-radius: 100%;
+  height: 150px;
+  width: 150px;
+  background: #ccc;
+  margin: 20px;
+}
+
+.row h1,
+.row p {
+  font-style: italic;
+  text-align: left;
+}
+
+.row h1 {
+  font-size: 1.4em;
+}
+
+.row p {
+  font-size: 1em;
+}
+@media screen and (max-width: 555px) {
+  #homeNav {
+    display: none;
+  }
+}
+.error {
+  color: red;
+  visibility: hidden;
+}
