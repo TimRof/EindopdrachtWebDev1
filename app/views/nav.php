@@ -3,7 +3,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-light justify-content-between mb-3" id="topnavbar">
             <a class="navbar-brand me-2" href="/">
-                <img id="homeLogo" src="/assets/img/bunnylogo.png" alt="Bunny looking like Elvis getting their haircut" loading="lazy" />
+                <img id="homeLogo" src="/assets/img/bunnylogo.png" alt="The Hare Company Logo" loading="lazy" />
                 <span class="ml-5" id="homeNav">The Hare Company</span>
             </a>
             <div class="justify-content-between">
