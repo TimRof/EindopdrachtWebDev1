@@ -8,84 +8,61 @@ include_once __DIR__ . '/../nav.php';
 <!-- Main -->
 
 <h1>Sign Up</h1>
-<form action="/signup/create" onsubmit="return validate_form()" method="post" name="signupform">
+<form method="post" action="/signup/create" id="formSignup">
     <div>
         <label for="inputName">Name</label>
-        <input id="inputName" name="name" placeholder="Name" maxlength="50" autofocus><span id="nameError" class="error">Name can not be empty.</span>
+        <input id="inputName" name="name" placeholder="Name" maxlength="50" autofocus required>
     </div>
     <div>
         <label for="inputEmail">Email</label>
-        <input id="inputEmail" name="email" placeholder="Email address" maxlength="200"><span id="emailError" class="error">Email not valid.</span>
+        <input id="inputEmail" type="email" name="email" placeholder="Email address" maxlength="200">
     </div>
     <div>
         <label for="inputPassword">Password</label>
-        <input type="password" id="inputPassword" name="password" placeholder="Password" maxlength="128"><span id="passwordlngthError" class="error">Password has to be at least 6 characters.</span>
+        <input type="password" id="inputPassword" name="password" placeholder="Password" maxlength="128">
     </div>
     <div>
         <label for="inputPasswordConfirmation">Repeat password</label>
-        <input type="password" id="inputPasswordConfirmation" name="password_confirmation" placeholder="Repeat password" maxlength="128"><span id="passwordmtchError" class="error">Passwords do not match.</span>
+        <input type="password" id="inputPasswordConfirmation" name="password_confirmation" placeholder="Repeat password" maxlength="128">
     </div>
     <button class="btn btn-primary rounded-pill" type="submit">Sign up</button>
-    <script>
-        function validate_form() {
-            var validName = true;
-            var validEmail = true;
-            var validPassLngth = true;
-            var validPassMtch = true;
-            var pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-            // check name is not empty
-            if (document.forms["signupform"]["name"].value == "") {
-                document.getElementById("nameError").style.visibility = "visible";
-                validName = false;
-            } else {
-                document.getElementById("nameError").style.visibility = "hidden";
-                validName = true;
-            }
-
-            // check password length
-            if (document.forms["signupform"]["password"].value.length < 6) {
-                document.getElementById("passwordlngthError").style.visibility = "visible";
-                validPassLngth = false;
-            } else {
-                document.getElementById("passwordlngthError").style.visibility = "hidden";
-                validPassLngth = true;
-            }
-
-            // check passwords match
-            if (document.forms["signupform"]["password"].value != document.forms["signupform"]["password_confirmation"].value) {
-                document.getElementById("passwordmtchError").style.visibility = "visible";
-                validPassMtch = false;
-            } else {
-                document.getElementById("passwordmtchError").style.visibility = "hidden";
-                validPassMtch = true;
-            }
-
-            // check email
-            var input = document.getElementById('inputEmail');
-
-            if (document.forms["signupform"]["email"].value == "") {
-                document.getElementById("emailError").style.visibility = "visible";
-                validEmail = false;
-            } else if (!pattern.test(document.forms["signupform"]["email"].value)) {
-                document.getElementById("emailError").style.visibility = "visible";
-                validEmail = false;
-            } else {
-                document.getElementById("emailError").style.visibility = "hidden";
-                validEmail = true;
-            }
-
-            if (validName && validPassLngth && validPassMtch && validEmail) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    </script>
 </form>
 
 <!-- Main -->
-
 <?php
 include_once __DIR__ . '/../footer.php';
 ?>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script>
+    $(document).ready(function() {
+
+        $('#formSignup').validate({
+            onkeyup: false,
+            onclick: false,
+            onfocusout: false,
+
+            rules: {
+                name: 'required',
+                email: {
+                    required: true,
+                    email: true,
+                    remote: '/account/validateEmail'
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                password_confirmation: {
+                    required: true,
+                    equalTo: '#inputPassword'
+                }
+            },
+            messages: {
+                email: {
+                    remote: 'Email already taken'
+                }
+            }
+        });
+    });
+</script>

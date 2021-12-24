@@ -30,9 +30,6 @@ a:active {
   height: 48px;
   margin-top: -1px;
 }
-.form-group {
-  margin-top: 1em;
-}
 #copyright {
   color: rgba(0, 0, 0, 0.5);
 }
@@ -198,9 +195,4 @@ hr {
   #homeNav {
     display: none;
   }
-}
-.error {
-  color: red;
-  visibility: hidden;
-  margin-left: 10px;
 }

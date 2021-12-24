@@ -15,4 +15,9 @@ class UserService
         $repository = new UserRepository();
         return $repository->insert($user);
     }
+    public function validateEmail($email)
+    {
+        $repository = new UserRepository();
+        return !$repository->emailExists($email);
+    }
 }
