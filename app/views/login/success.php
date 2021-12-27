@@ -1,6 +1,5 @@
 <?php
-$PageTitle = "The Hair Company - Error!";
-
+$PageTitle = "The Hair Company - Success!";
 
 include_once __DIR__ . '/../header.php';
 include_once __DIR__ . '/../nav.php';
@@ -8,12 +7,10 @@ include_once __DIR__ . '/../nav.php';
 
 <!-- Main -->
 
-<h1>Sign up</h1>
+<h1>Login</h1>
 
-<p>Oops something went wrong! <br>
-    Sign up was not completed, please try again or contact support.
-</p>
-
+<p>You were successfully logged in!<br><br>Redirecting you to the home page in 3 seconds...</p>
+<meta http-equiv="refresh" content="3;url= / " />
 
 <!-- Main -->
 

@@ -191,6 +191,12 @@ hr {
 .row p {
   font-size: 1em;
 }
+.alert {
+  width: 20%;
+  text-align: center;
+  margin-left: 2%;
+  margin-top: 1%;
+}
 @media screen and (max-width: 555px) {
   #homeNav {
     display: none;

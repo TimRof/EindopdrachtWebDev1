@@ -17,23 +17,21 @@ class SignUpController extends Controller
 
     public function create()
     {
-        $user = new User($_POST);
-        $userservice = new UserService();
-        // echo '<pre>';
-        // var_dump($user);
-        // echo "<br><br>";
-        // var_dump($_POST);
-        try {
-            if ($userservice->insert($user)) {
-                $this->redirect('/signup/success');
-            } else {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $user = new User($_POST);
+            $userService = new UserService();
+            try {
+                if ($userService->insert($user)) {
+                    $user = $userService->findByEmail($user->getEmail());
+                    $_SESSION['user_id'] = $user->id;
+                    $_SESSION['user_name'] = $user->name;
+                    $this->redirect('/signup/success');
+                } else {
+                    $this->redirect('/signup/failed');
+                }
+            } catch (\Throwable $th) {
                 $this->redirect('/signup/failed');
             }
-        } catch (\Throwable $th) {
-            echo "<br> <br> catchsignup";
-            echo '<pre>';
-            echo $th;
-            var_dump($user);
         }
     }
 

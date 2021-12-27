@@ -20,4 +20,13 @@ class UserService
         $repository = new UserRepository();
         return !$repository->emailExists($email);
     }
+    public function login($email, $password)
+    {
+        $repository = new UserRepository();
+        return $repository->checkCredentials($email, $password);
+    }
+    public function findByEmail($email){
+        $repository = new UserRepository();
+        return $repository->findByEmail($email);
+    }
 }

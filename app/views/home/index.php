@@ -7,7 +7,7 @@ include_once __DIR__ . '/../nav.php';
 <main class="text-center">
     <div class="container d-flex align-items-center flex-column">
         <img class="mb-5" src="assets/img/bunnylogo.png" alt="Bunny looking like Elvis getting their haircut" height="250em" />
-        <h1 class="text-uppercase mb-0 basic-color">Welcome!</h1>
+        <h1 class="text-uppercase mb-0 basic-color">Welcome<?php echo " " . $_SESSION['user_name'] ?>!</h1>
         <div class="divider-custom divider-light">
             <div class="divider-custom-line"></div>
             <div class="divider-custom-icon">
@@ -47,4 +47,7 @@ include_once __DIR__ . '/../nav.php';
 
 <?php
 include_once __DIR__ . '/../footer.php';
+?>
+<?php
+include_once __DIR__ . '/../end.php';
 ?>

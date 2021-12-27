@@ -1,6 +1,9 @@
 <?php
+
 class PatternRouter
 {
+
+
     // source: https://github.com/ahrnuld/Routing
 
     private function stripParameters($uri)
@@ -13,6 +16,8 @@ class PatternRouter
 
     public function route($uri)
     {
+        session_start();
+
         // Path algorithm
         // pattern = /controller/method
 

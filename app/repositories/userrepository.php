@@ -51,13 +51,30 @@ class UserRepository extends Repository
     }
     public function emailExists($email)
     {
+        return $this->findByEmail($email) !== false;
+    }
+    public function findByEmail($email)
+    {
         $sql = 'SELECT * FROM usersbasic WHERE email = :email';
 
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
 
         $stmt->execute();
 
-        return $stmt->fetch() !== false;
+        return $stmt->fetch();
+    }
+    public function checkCredentials($email, $password)
+    {
+        $user = $this->findByEmail($email);
+
+        if ($user) {
+            if (password_verify($password, $user->password_hash)) {
+                return $user;
+            }
+        }
+
+        return false;
     }
 }

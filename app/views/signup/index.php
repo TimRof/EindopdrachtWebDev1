@@ -66,3 +66,6 @@ include_once __DIR__ . '/../footer.php';
         });
     });
 </script>
+<?php
+include_once __DIR__ . '/../end.php';
+?>
