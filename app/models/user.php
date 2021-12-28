@@ -1,6 +1,6 @@
 <?php
 
-class User implements \JsonSerializable
+class User
 {
     private int $id;
     private string $name;
@@ -25,9 +25,5 @@ class User implements \JsonSerializable
     public function getEmail(): string
     {
         return $this->email;
-    }
-    public function jsonSerialize(): mixed
-    {
-        return get_object_vars($this);
     }
 }

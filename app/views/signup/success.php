@@ -6,13 +6,13 @@ include_once __DIR__ . '/../nav.php';
 ?>
 
 <!-- Main -->
+<div class="content">
+    <h1>Sign up</h1>
 
-<h1>Sign up</h1>
-
-<p>Success! Thank you for signing up.<br><br>Redirecting you to the home page in 3 seconds...</p>
-<meta http-equiv="refresh" content="3;url= / " />
-</p>
-
+    <p>Success! Thank you for signing up.<br><br>Redirecting you to the home page in 3 seconds...</p>
+    <meta http-equiv="refresh" content="3;url= / " />
+    </p>
+</div>
 <!-- Main -->
 
 <?php

@@ -1,7 +1,7 @@
 <!-- Footer -->
 </div>
 <footer class="text-center" id="footer">
-    <hr />
+    <hr id="footerhr">
     <div class="text-center" id="copyright">
         Copyright © 2022 The Hare Company
     </div>

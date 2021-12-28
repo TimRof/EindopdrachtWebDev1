@@ -7,13 +7,13 @@ include_once __DIR__ . '/../nav.php';
 ?>
 
 <!-- Main -->
+<div class="content">
+    <h1 class="title">Sign up</h1>
 
-<h1>Sign up</h1>
-
-<p>Oops something went wrong! <br>
-    Sign up was not completed, please try again or contact support.
-</p>
-
+    <p>Oops something went wrong! <br>
+        Sign up was not completed, please try again or contact support.
+    </p>
+</div>
 
 <!-- Main -->
 

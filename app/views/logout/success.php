@@ -6,11 +6,12 @@ include_once __DIR__ . '/../nav.php';
 ?>
 
 <!-- Main -->
+<div class="content">
+    <h1 class="title">Log out</h1>
 
-<h1>Log out</h1>
-
-<p>You were successfully logged out!<br><br>Redirecting you to the home page in 3 seconds...</p>
-<meta http-equiv="refresh" content="3;url= / " />
+    <p>You were successfully logged out!<br><br>Redirecting you to the home page in 3 seconds...</p>
+    <meta http-equiv="refresh" content="3;url= / " />
+</div>
 <!-- Main -->
 
 <?php

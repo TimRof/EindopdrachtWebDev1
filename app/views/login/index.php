@@ -6,27 +6,34 @@ include_once __DIR__ . '/../nav.php';
 ?>
 
 <!-- Main -->
-<h1>Login</h1>
-
-
-<form method="post" action="/login/create" id="formLogin">
+<div class="content">
     <div>
-        <label for="inputEmail">Email</label>
-        <input type="email" id="inputEmail" name="email" placeholder="Email address" value="<?php echo $email; ?>" <?php if (empty($email)) { ?> autofocus <?php } ?>>
-    </div>
-    <div>
-        <label for="inputPassword">Password</label>
-        <input type="password" id="inputPassword" name="password" placeholder="Password" <?php if (!empty($email)) { ?> autofocus <?php } ?>>
+        <h1 class="title">Login</h1>
     </div>
 
-    <button class="btn btn-primary rounded-pill" type="submit">Login</button>
-    <?php if ($user == false && !is_null($email)) { ?>
-        <p class="alert alert-danger" role="alert">
-            <b>Incorrect Credentials</b><br>
-            Verify your email address and password and try again.
-        </p>
-    <?php } ?>
-</form>
+    <div>
+        <form method="post" action="/login/create" id="formLogin">
+            <div>
+                <label class="inputlabel" for="inputEmail">Email</label>
+                <input type="email" id="inputEmail" name="email" placeholder="Email address" value="<?php echo $email; ?>" <?php if (empty($email)) { ?> autofocus <?php } ?>>
+            </div>
+            <div>
+                <label class="inputlabel" for="inputPassword">Password</label>
+                <input type="password" id="inputPassword" name="password" placeholder="Password" <?php if (!empty($email)) { ?> autofocus <?php } ?>>
+            </div>
+
+            <div class="d-flex justify-content-center mt-3 login_container">
+                <button class="btn btn-primary rounded-pill" type="submit">Login</button>
+            </div>
+            <?php if ($user == false && !is_null($email)) { ?>
+                <p class="alert alert-danger" role="alert">
+                    <b>Incorrect Credentials</b><br>
+                    Verify your email address and password and try again.
+                </p>
+            <?php } ?>
+        </form>
+    </div>
+</div>
 <!-- Main -->
 
 <?php

@@ -4,14 +4,14 @@ $PageTitle = "The Hair Company - Success!";
 include_once __DIR__ . '/../header.php';
 include_once __DIR__ . '/../nav.php';
 ?>
+<div class="content">
+    <!-- Main -->
+    <h1 class="title">Login</h1>
 
-<!-- Main -->
+    <p>You were successfully logged in!<br><br>Redirecting you to the home page in 3 seconds...</p>
+    <meta http-equiv="refresh" content="3;url= / " />
 
-<h1>Login</h1>
-
-<p>You were successfully logged in!<br><br>Redirecting you to the home page in 3 seconds...</p>
-<meta http-equiv="refresh" content="3;url= / " />
-
+</div>
 <!-- Main -->
 
 <?php
