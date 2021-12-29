@@ -24,7 +24,7 @@ class LogoutController extends Controller
             session_destroy();
             require __DIR__ . '/../views/logout/success.php';
         } catch (\Throwable $th) {
-            http_response_code(404);
+            $this->redirect('/404');
             die();
         }
     }

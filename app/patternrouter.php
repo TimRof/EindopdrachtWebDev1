@@ -1,9 +1,6 @@
 <?php
-
 class PatternRouter
 {
-
-
     // source: https://github.com/ahrnuld/Routing
 
     private function stripParameters($uri)
@@ -56,7 +53,8 @@ class PatternRouter
         if (file_exists($filename)) {
             require $filename;
         } else {
-            http_response_code(404);
+            require __DIR__ . '/views/error/index.php';
+
             die();
         }
         // dynamically call relevant controller method
@@ -68,7 +66,8 @@ class PatternRouter
                 throw new Exception();
             }
         } catch (Exception $e) {
-            http_response_code(404);
+            require __DIR__ . '/views/error/index.php';
+
             die();
         }
     }

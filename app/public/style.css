@@ -201,7 +201,10 @@ a:active {
   background: #ccc;
   margin: 20px;
 }
-
+.btn-check:disabled + .btn,
+.btn-check[disabled] + .btn {
+  text-decoration: line-through;
+}
 .row h1,
 .row p {
   font-style: italic;
@@ -224,6 +227,7 @@ a:active {
 .content {
   max-width: 30%;
   margin: auto;
+  margin-top: 5%;
 }
 .inputlabel {
   display: inline-block;

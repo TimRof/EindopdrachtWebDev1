@@ -6,6 +6,7 @@ class LoginController extends Controller
 {
     public function index()
     {
+
         try {
             error_reporting(0);
             $email = $_SESSION['POST'];
@@ -19,27 +20,37 @@ class LoginController extends Controller
             error_reporting(0);
             require __DIR__ . '/../views/login/index.php';
         } catch (\Throwable $th) {
-            http_response_code(404);
+            $this->redirect('/404');
             die();
         }
     }
 
     public function create()
     {
-        $userService = new UserService();
-        $user = $userService->login($_POST['email'], $_POST['password']);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userService = new UserService();
+            $user = $userService->login($_POST['email'], $_POST['password']);
 
-        if ($user) {
-            $_SESSION['user_id'] = $user->id;
-            $_SESSION['user_name'] = $user->name;
-            $this->redirect('/login/success');
+            if ($user) {
+                $_SESSION['user_id'] = $user->id;
+                $_SESSION['user_name'] = $user->name;
+                $this->redirect('/login/success');
+            } else {
+                $_SESSION['POST'] = $_POST['email'];
+                $this->redirect('/login');
+            }
         } else {
-            $_SESSION['POST'] = $_POST['email'];
-            $this->redirect('/login');
+            $this->redirect('/404');
+            die();
         }
     }
     public function success()
     {
-        require __DIR__ . '/../views/login/success.php';
+        if (isset($_SESSION['user_id'])) {
+            require __DIR__ . '/../views/login/success.php';
+        } else {
+            $this->redirect('/404');
+            die();
+        }
     }
 }

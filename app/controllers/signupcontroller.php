@@ -10,7 +10,7 @@ class SignUpController extends Controller
             error_reporting(0);
             require __DIR__ . '/../views/signup/index.php';
         } catch (\Throwable $th) {
-            http_response_code(404);
+            $this->redirect('/404');
             die();
         }
     }

@@ -3,9 +3,18 @@ require __DIR__ . '/../repositories/appointmentrepository.php';
 
 class AppointmentService
 {
+    public function getAll()
+    {
+        $repository = new AppointmentRepository();
+        return $repository->getAll();
+    }
+    public function getAllByDate($date)
+    {
+        $repository = new AppointmentRepository();
+        return $repository->getAllByDate($date);
+    }
     public function getTimeslots($opening, $closing, $duration, $break)
     {
-        error_reporting(1);
         date_default_timezone_set('Europe/Amsterdam');
         $timeslots = [];
         $start = new DateTime($opening);
@@ -16,17 +25,18 @@ class AppointmentService
         $i = 0;
         do {
             $appointment = new Appointment();
-            $appointment->setStart(clone $start);
+            $appointment->setStart($start);
             $appointment->setEnd(clone $end);
+            $appointment->setDuration($duration);
+            $appointment->setTimeSlot($i);
 
+            $timeslots[$i] = clone $appointment;
             $i++;
-            $timeslots[$i] = $appointment;
 
             $end->modify("+{$break} minutes");
             $start = clone $end;
             $end->modify("+{$duration} minutes");
         } while ($end <= $closing);
-
         return $timeslots;
     }
 }

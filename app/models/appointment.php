@@ -1,22 +1,41 @@
 <?php
 require __DIR__ . '/../models/user.php';
 
-
 class Appointment implements \JsonSerializable
 {
-    private $user;
+    private $id;
+    private $user_id;
     private $type;
+    private $timeslot;
     private $start;
     private $end;
     private $duration;
     private $booked;
-    private $available;
+    private $taken;
+
+    public $errors = [];
 
     public function __construct($data = [])
     {
         foreach ($data as $key => $value) {
             $this->$key = $value;
         };
+    }
+    public function setDuration(int $duration): self
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+    public function getTimeSlot(): int
+    {
+        return $this->timeslot;
+    }
+    public function setTimeSlot(int $timeslot): self
+    {
+        $this->timeslot = $timeslot;
+
+        return $this;
     }
     public function getStart(): DateTime
     {
@@ -35,6 +54,26 @@ class Appointment implements \JsonSerializable
     public function setEnd(DateTime $end): self
     {
         $this->end = $end;
+
+        return $this;
+    }
+    public function getType(): string
+    {
+        return $this->type;
+    }
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+    public function getTaken(): bool
+    {
+        return $this->taken;
+    }
+    public function setTaken(bool $taken): self
+    {
+        $this->taken = $taken;
 
         return $this;
     }

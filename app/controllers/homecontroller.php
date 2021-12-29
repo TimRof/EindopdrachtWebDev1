@@ -9,7 +9,7 @@ class HomeController extends Controller
             error_reporting(0);
             require __DIR__ . '/../views/home/index.php';
         } catch (\Throwable $th) {
-            http_response_code(404);
+            $this->redirect('/404');
             die();
         }
     }
