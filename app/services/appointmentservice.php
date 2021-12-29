@@ -17,9 +17,9 @@ class AppointmentService
     {
         date_default_timezone_set('Europe/Amsterdam');
         $timeslots = [];
-        $start = new DateTime($opening);
-        $closing = new DateTime($closing);
-        $end = new DateTime($opening);
+        $start = clone $opening;
+        $closing = clone $closing;
+        $end = clone $opening;
         $end->modify("+{$duration} minutes");
 
         $i = 0;
@@ -37,6 +37,7 @@ class AppointmentService
             $start = clone $end;
             $end->modify("+{$duration} minutes");
         } while ($end <= $closing);
+
         return $timeslots;
     }
 }

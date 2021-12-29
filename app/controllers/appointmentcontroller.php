@@ -25,8 +25,11 @@ class AppointmentController extends Controller
     }
     public function getSlots()
     {
-        $opening = '09:00';
-        $closing = '18:00';
+        $date = new DateTime();
+        $opening = clone $date;
+        $opening->setTime(9, 0, 0);
+        $closing = clone $date;
+        $closing->setTime(18, 0, 0);
         $duration = 45;
         $break = 15;
 
@@ -47,15 +50,18 @@ class AppointmentController extends Controller
     }
     public function getSlotsByDate($data)
     {
-        $opening = '09:00';
-        $closing = '18:00';
-        $duration = 45;
-        $break = 15;
         try {
             $date = new DateTime($data);
         } catch (\Throwable $th) {
             $date = $data;
         }
+        $opening = clone $date;
+        $opening->setTime(9, 0, 0);
+        $closing = clone $date;
+        $closing->setTime(18, 0, 0);
+        $duration = 45;
+        $break = 15;
+
         $taken = $this->appointmentService->getAllByDate($date);
         $timeslots = $this->appointmentService->getTimeslots($opening, $closing, $duration, $break);
         foreach ($timeslots as $slot1) {
@@ -80,12 +86,11 @@ class AppointmentController extends Controller
         $this->appointmentService = new AppointmentService();
         echo json_encode($this->getSlots(), JSON_PRETTY_PRINT);
     }
-    public function getFreeSlots($date)
+    public function getFreeSlots()
     {
+        $taken = $this->getSlotsByDate($_POST['date']);
         header("Content-type:application/json");
-        $this->appointmentService = new AppointmentService();
-        $slots = $this->getSlotsByDate($date);
-        return json_encode($slots);
+        echo json_encode(($taken), JSON_PRETTY_PRINT);
     }
     public function test()
     {

@@ -5,6 +5,7 @@ include_once __DIR__ . '/../nav.php';
 $PageTitle = "The Hair Company - Appointment";
 ?>
 <!-- Main -->
+
 <div class="content">
     <h1 class="title">Appointment</h1>
     <h4>Choose date:</h4>
@@ -15,24 +16,7 @@ $PageTitle = "The Hair Company - Appointment";
         <h4>Choose time:</h4>
         <div>
             <fieldset id="time-options">
-                <?php
-                $controller = new AppointmentController();
-                $i = 0;
-                foreach ($controller->getSlots() as $appointment) {
-                ?>
 
-                    <input type="radio" class="btn-check" name="time-options" id="<?php echo $i; ?>" <?php
-                                                                                                        if ($appointment->getTaken() || date_format($appointment->getStart(), 'Y-m-d H:i:s') < date('Y-m-d H:i:s')) {
-                                                                                                            echo "disabled";
-                                                                                                        }
-                                                                                                        ?>>
-                    <label class="btn btn-outline-success m-2" for="<?php echo $i;
-                                                                    $i++; ?>"><?php echo date_format($appointment->getStart(), 'H:i') ?> - <?php echo date_format($appointment->getEnd(), 'H:i') ?></label>
-                <?php
-                }
-                echo date('d-m-Y H:i:s');
-
-                ?>
             </fieldset>
         </div>
     </div>
@@ -54,7 +38,6 @@ $PageTitle = "The Hair Company - Appointment";
         <button class="btn btn-lg btn-primary me-1 rounded-pill m-2">Make appointment</button>
     </div>
 </div>
-<input type="text" id="hiddendate" name="hiddendate" value="<?php echo date('Y-m-d'); ?>">
 <!-- Main -->
 <?php
 include_once __DIR__ . '/../footer.php';
@@ -68,37 +51,62 @@ include_once __DIR__ . '/../footer.php';
     document.getElementById('datepicker').value = new Date().toDateInputValue();
 </script>
 <script>
+    document.addEventListener('readystatechange', () => {
+        AjaxReq();
+    });
     document.getElementById('datepicker').addEventListener('change', () => {
+        AjaxReq();
+    });
+
+    function AjaxReq() {
         const date = {
             date: document.getElementById('datepicker').value
         };
-        console.log(date);
-        // fetch('appointment/test', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             date: '2021-12-29'
-        //         }),
-        //     }).then(response => response.json())
-        //     .then(data => {
-        //         console.log('Success:', data);
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //     });
         $.ajax({
             type: 'POST',
-            url: 'appointment/test',
+            url: 'appointment/getFreeSlots',
             data: {
                 date: document.getElementById('datepicker').value
             },
         }).done(function(res) {
-            console.log(res);
+            makeButtons(res);
         })
-    });
+    }
+
+    function makeButtons(res) {
+        document.getElementById('time-options').innerHTML = "";
+        var now = new Date();
+        for (const element of res) {
+            var radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.id = element.timeslot;
+            radio.name = 'time-options';
+            radio.classList.add('btn-check');
+
+            var label = document.createElement('label');
+            label.classList.add('btn');
+            label.classList.add('btn-outline-success');
+            label.classList.add('m-2');
+            label.htmlFor = element.timeslot;
+
+            var start = element.start.date.substring(11, 16);
+            var end = element.end.date.substring(11, 16);
+            var description = document.createTextNode(start + " - " + end);
+            label.appendChild(description);
+
+            var starttime = new Date();
+            starttime.setTime(Date.parse(element.start.date));
+
+            if (element.taken || (now.setHours(0, 0, 0, 0) == starttime.setHours(0, 0, 0, 0) && starttime < now)) {
+                radio.disabled = true;
+            }
+            var fieldset = document.getElementById('time-options');
+            fieldset.appendChild(radio);
+            fieldset.appendChild(label);
+        }
+    }
 </script>
+
 <?php
 include_once __DIR__ . '/../end.php';
 ?>
