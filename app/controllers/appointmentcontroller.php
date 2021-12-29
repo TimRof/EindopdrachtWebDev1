@@ -89,8 +89,7 @@ class AppointmentController extends Controller
     }
     public function test()
     {
-        $date = new DateTime('2021-12-29');
-        $taken = $this->getSlotsByDate($date);
+        $taken = $this->getSlotsByDate($_POST['date']);
         // echo '<pre>';
         // var_dump($taken);
         header("Content-type:application/json");

@@ -72,19 +72,31 @@ include_once __DIR__ . '/../footer.php';
         const date = {
             date: document.getElementById('datepicker').value
         };
-        fetch('appointment/test', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(date),
-            }).then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        console.log(date);
+        // fetch('appointment/test', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             date: '2021-12-29'
+        //         }),
+        //     }).then(response => response.json())
+        //     .then(data => {
+        //         console.log('Success:', data);
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error:', error);
+        //     });
+        $.ajax({
+            type: 'POST',
+            url: 'appointment/test',
+            data: {
+                date: document.getElementById('datepicker').value
+            },
+        }).done(function(res) {
+            console.log(res);
+        })
     });
 </script>
 <?php
