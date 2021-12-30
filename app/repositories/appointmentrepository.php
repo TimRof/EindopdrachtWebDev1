@@ -1,7 +1,8 @@
 <?php
 
-require __DIR__ . '/repository.php';
+require __DIR__ . '/../repositories/repository.php';
 require __DIR__ . '/../models/appointment.php';
+require __DIR__ . '/../models/type.php';
 
 class AppointmentRepository extends Repository
 {
@@ -58,5 +59,16 @@ class AppointmentRepository extends Repository
         if (date_format($appointment->getStart(), 'Y-m-d H:i:s') < date('Y-m-d H:i:s')) {
             $appointment->errors[] = 'Can not book in the past';
         }
+    }
+    public function getAllTypes()
+    {
+        $sql = 'SELECT * FROM types';
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'type');
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
 }

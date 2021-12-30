@@ -13,6 +13,10 @@ class AppointmentService
         $repository = new AppointmentRepository();
         return $repository->getAllByDate($date);
     }
+    public function getAllTypes(){
+        $repository = new AppointmentRepository();
+        return $repository->getAllTypes();
+    }
     public function getTimeslots($opening, $closing, $duration, $break)
     {
         date_default_timezone_set('Europe/Amsterdam');

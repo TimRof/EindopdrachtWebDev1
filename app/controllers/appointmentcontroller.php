@@ -13,8 +13,8 @@ class AppointmentController extends Controller
     {
         if (isset($_SESSION['user_id'])) {
             try {
-                $timeslots = $this->getSlots();
-                $this->displayView($timeslots);
+                $types = $this->appointmentService->getAllTypes();
+                $this->displayView($types);
             } catch (\Throwable $th) {
                 $this->redirect('/404');
                 die();
@@ -50,11 +50,7 @@ class AppointmentController extends Controller
     }
     public function getSlotsByDate($data)
     {
-        try {
-            $date = new DateTime($data);
-        } catch (\Throwable $th) {
-            $date = $data;
-        }
+        $date = new DateTime($data);
         $opening = clone $date;
         $opening->setTime(9, 0, 0);
         $closing = clone $date;
@@ -92,12 +88,17 @@ class AppointmentController extends Controller
         header("Content-type:application/json");
         echo json_encode(($taken), JSON_PRETTY_PRINT);
     }
+    public function getTypes()
+    {
+        $types = $this->appointmentService->getAllTypes();
+        header("Content-type:application/json");
+        echo json_encode(($types), JSON_PRETTY_PRINT);
+    }
     public function test()
     {
-        $taken = $this->getSlotsByDate($_POST['date']);
-        // echo '<pre>';
-        // var_dump($taken);
+        $types = $this->appointmentService->getAllTypes();
         header("Content-type:application/json");
-        echo json_encode(($taken), JSON_PRETTY_PRINT);
+        echo json_encode($types, JSON_PRETTY_PRINT);
+        var_dump($types);
     }
 }
