@@ -61,16 +61,13 @@ class AppointmentController extends Controller
         $taken = $this->appointmentService->getAllByDate($date);
         $timeslots = $this->appointmentService->getTimeslots($opening, $closing, $duration, $break);
         foreach ($timeslots as $slot1) {
-            if ($taken) {
-                foreach ($taken as $slot2) {
-                    if ($slot1->getTimeSlot() == $slot2->getTimeSlot()) {
-                        $slot1->setTaken(1);
-                    } else {
-                        $slot1->setTaken(0);
-                    }
+            foreach ($taken as $slot2) {
+                if ($slot1->getTimeSlot() == $slot2->getTimeSlot()) {
+                    $slot1->setTaken(1);
+                    break;
+                } else {
+                    $slot1->setTaken(0);
                 }
-            } else {
-                $slot1->setTaken(0);
             }
         }
 
@@ -94,11 +91,42 @@ class AppointmentController extends Controller
         header("Content-type:application/json");
         echo json_encode(($types), JSON_PRETTY_PRINT);
     }
-    public function test()
+    public function create()
     {
-        $types = $this->appointmentService->getAllTypes();
-        header("Content-type:application/json");
-        echo json_encode($types, JSON_PRETTY_PRINT);
-        var_dump($types);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $types = $this->appointmentService->getAllTypes();
+            $timeslots = $this->getSlotsByDate($_POST['hiddendate']);
+
+            foreach ($timeslots as $s) {
+                if ($s->getTimeSlot() == $_POST['time-options']) {
+                    $timeslot = clone $s;
+                }
+            }
+            foreach ($types as $t) {
+                if ($t->getId() == $_POST['type-options']) {
+                    $type = clone $t;
+                }
+            }
+            $id = $_SESSION['user_id'];
+            $this->appointmentService = new AppointmentService();
+            try {
+                if ($this->appointmentService->makeAppointment($type, $timeslot, $id)) {
+                    $this->redirect('/appointment/success');
+                } else {
+                    $this->redirect('/appointment/failed');
+                }
+            } catch (\Throwable $th) {
+                $this->redirect('/appointment/failed');
+            }
+        }
+    }
+    public function success()
+    {
+        require __DIR__ . '/../views/appointment/success.php';
+    }
+    public function failed()
+    {
+        require __DIR__ . '/../views/appointment/failed.php';
     }
 }

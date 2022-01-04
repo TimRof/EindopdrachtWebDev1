@@ -13,7 +13,8 @@ class AppointmentService
         $repository = new AppointmentRepository();
         return $repository->getAllByDate($date);
     }
-    public function getAllTypes(){
+    public function getAllTypes()
+    {
         $repository = new AppointmentRepository();
         return $repository->getAllTypes();
     }
@@ -33,6 +34,7 @@ class AppointmentService
             $appointment->setEnd(clone $end);
             $appointment->setDuration($duration);
             $appointment->setTimeSlot($i);
+            $appointment->setTaken(false);
 
             $timeslots[$i] = clone $appointment;
             $i++;
@@ -43,5 +45,10 @@ class AppointmentService
         } while ($end <= $closing);
 
         return $timeslots;
+    }
+    public function makeAppointment($type, $timeslot, $id)
+    {
+        $repository = new AppointmentRepository();
+        return $repository->makeAppointment($type, $timeslot, $id);
     }
 }

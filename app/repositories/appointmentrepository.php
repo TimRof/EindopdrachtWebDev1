@@ -21,7 +21,9 @@ class AppointmentRepository extends Repository
     function getAllByDate($selectedDate)
     {
         $dayAfter = clone $selectedDate;
-        $dayAfter->modify('+1 day');
+        $dayAfter->setTime(23, 59, 59);
+        $selectedDate->setTime(8, 0, 0);
+
         $sql = 'SELECT * FROM appointments WHERE start >= :selectedDate AND start < :dayAfter';
 
         $stmt = $this->connection->prepare($sql);
@@ -70,5 +72,23 @@ class AppointmentRepository extends Repository
         $stmt->execute();
 
         return $stmt->fetchAll();
+    }
+    public function makeAppointment($type, $timeslot, $id)
+    {
+        $this->validate($timeslot);
+        if (empty($timeslot->errors)) {
+            $sql = 'INSERT INTO appointments (user_id, timeslot, start, end, type) VALUES (:user_id, :timeslot, :start, :end, :type)';
+            $stmt = $this->connection->prepare($sql);
+
+            $stmt->bindValue(':user_id', $id, PDO::PARAM_STR);
+            $stmt->bindValue(':timeslot', $timeslot->getTimeSlot(), PDO::PARAM_STR);
+            $stmt->bindValue(':start', date_format($timeslot->getStart(), 'Y-m-d H:i:s'), PDO::PARAM_STR);
+            $stmt->bindValue(':end', date_format($timeslot->getEnd(), 'Y-m-d H:i:s'), PDO::PARAM_STR);
+            $stmt->bindValue(':type', $type->type, PDO::PARAM_STR);
+
+            return $stmt->execute();
+        }
+
+        return false;
     }
 }

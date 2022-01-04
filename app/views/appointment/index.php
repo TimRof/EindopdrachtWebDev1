@@ -12,25 +12,30 @@ $PageTitle = "The Hair Company - Appointment";
     <div class="input-group mb-2">
         <input type="date" class="form-control" name="datepicker" id="datepicker" min="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d', strtotime("+21 days")); ?>" required>
     </div>
-    <div>
-        <h4>Choose time:</h4>
+    <form action="/appointment/create" method="post">
         <div>
-            <fieldset id="time-options">
+            <h4>Choose time:</h4>
+            <div>
+                <fieldset id="time-options">
 
-            </fieldset>
+                </fieldset>
+            </div>
         </div>
-    </div>
-    <div>
-        <h4>Choose type:</h4>
         <div>
-            <fieldset id="type-options">
-            </fieldset>
+            <h4>Choose type:</h4>
+            <div>
+                <fieldset id="type-options">
+                </fieldset>
+            </div>
         </div>
-    </div>
-    <hr>
-    <div class="d-flex justify-content-center mt-3 login_container">
-        <button class="btn btn-lg btn-primary me-1 rounded-pill m-2">Make appointment</button>
-    </div>
+
+        <hr>
+        <input type="text" id="hiddendate" name="hiddendate" value="">
+        <input type="text" id="hiddendatetime" name="hiddendatetime" value="">
+        <div class="d-flex justify-content-center mt-3 login_container">
+            <input class="btn btn-lg btn-primary me-1 rounded-pill m-2" type="submit" value="Make appointment">
+        </div>
+    </form>
 </div>
 <!-- Main -->
 <?php
@@ -46,14 +51,19 @@ include_once __DIR__ . '/../footer.php';
 </script>
 <script>
     document.addEventListener('readystatechange', () => {
+        document.getElementById("hiddendate").value = document.getElementById('datepicker').value;
+        getTime();
         AjaxReqSlots();
         AjaxReqTypes();
     });
     document.getElementById('datepicker').addEventListener('change', () => {
+        document.getElementById("hiddendate").value = document.getElementById('datepicker').value;
+        getTime();
         AjaxReqSlots();
     });
 
     function AjaxReqSlots() {
+        var currentdate = new Date();
         const date = {
             date: document.getElementById('datepicker').value
         };
@@ -61,10 +71,11 @@ include_once __DIR__ . '/../footer.php';
             type: 'POST',
             url: 'appointment/getFreeSlots',
             data: {
-                date: document.getElementById('datepicker').value
+                date: document.getElementById('hiddendatetime').value
             },
         }).done(function(res) {
-            makeSlotButtons(res);
+            console.log(res),
+                makeSlotButtons(res);
         })
     }
 
@@ -79,6 +90,7 @@ include_once __DIR__ . '/../footer.php';
             radio.id = 'time' + element.timeslot;
             radio.name = 'time-options';
             radio.classList.add('btn-check');
+            radio.value = element.timeslot;
 
             var label = document.createElement('label');
             label.classList.add('btn');
@@ -122,6 +134,7 @@ include_once __DIR__ . '/../footer.php';
             radio.id = 'type' + type.id;
             radio.name = 'type-options';
             radio.classList.add('btn-check');
+            radio.value = type.id;
 
             var label = document.createElement('label');
             label.classList.add('btn');
@@ -141,6 +154,14 @@ include_once __DIR__ . '/../footer.php';
             fieldset.appendChild(radio);
             fieldset.appendChild(label);
         }
+    }
+
+    function getTime() {
+        var currentdate = new Date();
+        document.getElementById("hiddendatetime").value = document.getElementById('datepicker').value + " " +
+            ('0' + currentdate.getHours()).slice(-2) + ":" +
+            ('0' + currentdate.getMinutes()).slice(-2) + ":" +
+            ('0' + currentdate.getSeconds()).slice(-2);
     }
 </script>
 
