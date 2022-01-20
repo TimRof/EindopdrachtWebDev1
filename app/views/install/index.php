@@ -61,7 +61,7 @@ if ($type == "mysql") {
 try {
     echo "Creating Table: types...<br>";
     $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-    $sql = "CREATE TABLE `usersbasic` (
+    $sql = "CREATE TABLE usersbasic (
         id SERIAL PRIMARY KEY,
         name varchar(50) NOT NULL,
         email varchar(255) NOT NULL,
