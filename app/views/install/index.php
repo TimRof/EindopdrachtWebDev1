@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '../../../dbconfig.php';
-
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 try {
     $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
     // set the PDO error mode to exception
@@ -24,55 +25,55 @@ if ($type == "mysql") {
     }
 }
 
-
-echo "*** Adding tables ***<br><br>";
-// create appointments table
-try {
-    echo "Creating Table: appointments...<br>";
-    $sql = "CREATE TABLE appointments (
-        id int NOT NULL,
-        user_id int NOT NULL,
-        timeslot int NOT NULL,
-        start datetime NOT NULL,
-        end datetime NOT NULL,
-        type varchar(255) NOT NULL
-      )";
-    $connection->exec($sql);
-    echo "Success: Table added! <br><br><br>";
-} catch (PDOException $e) {
-    echo "Failed: " . $e->getMessage() . "<br>";
-}
-
-// create types table
-try {
-    echo "Creating Table: types...<br>";
-    $sql = "CREATE TABLE types (
-        id int NOT NULL,
-        type varchar(255) NOT NULL,
-        price decimal(10,2) NOT NULL
-      )";
-    $connection->exec($sql);
-    echo "Success: Table added! <br><br><br>";
-} catch (PDOException $e) {
-    echo "Failed: " . $e->getMessage() . "<br>";
-}
-
-// // create usersbasic table
+// echo "*** Adding tables ***<br><br>";
+// // create appointments table
 // try {
-//     echo "Creating Table: types...<br>";
-//     $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-//     $sql = "CREATE TABLE `usersbasic` (
-//         `id` int(11) NOT NULL,
-//         `name` varchar(50) NOT NULL,
-//         `email` varchar(255) NOT NULL,
-//         `password_hash` varchar(255) NOT NULL,
-//         `admin` int(11) DEFAULT NULL
-//       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+//     echo "Creating Table: appointments...<br>";
+//     $sql = "CREATE TABLE appointments (
+//         id SERIAL PRIMARY KEY,
+//         user_id int NOT NULL,
+//         timeslot int NOT NULL,
+//         start datetime NOT NULL,
+//         end datetime NOT NULL,
+//         type varchar(255) NOT NULL
+//       )";
 //     $connection->exec($sql);
 //     echo "Success: Table added! <br><br><br>";
 // } catch (PDOException $e) {
 //     echo "Failed: " . $e->getMessage() . "<br>";
 // }
+
+// // create types table
+// try {
+//     echo "Creating Table: types...<br>";
+//     $sql = "CREATE TABLE types (
+//         id SERIAL PRIMARY KEY,
+//         type varchar(255) NOT NULL,
+//         price decimal(10,2) NOT NULL
+//       )";
+//     $connection->exec($sql);
+//     echo "Success: Table added! <br><br><br>";
+// } catch (PDOException $e) {
+//     echo "Failed: " . $e->getMessage() . "<br>";
+// }
+
+// create usersbasic table
+try {
+    echo "Creating Table: types...<br>";
+    $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
+    $sql = "CREATE TABLE `usersbasic` (
+        id SERIAL PRIMARY KEY,
+        name varchar(50) NOT NULL,
+        email varchar(255) NOT NULL,
+        password_hash varchar(255) NOT NULL,
+        admin int DEFAULT NULL
+      )";
+    $connection->exec($sql);
+    echo "Success: Table added! <br><br><br>";
+} catch (PDOException $e) {
+    echo "Failed: " . $e->getMessage() . "<br>";
+}
+
 // echo "*** Creating Indexes ***<br><br>";
 // // create appointments indexes
 // try {
