@@ -19,14 +19,14 @@ echo "*** Adding tables ***<br><br>";
 try {
     echo "Creating Table: appointments...<br>";
     $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-    $sql = 'CREATE TABLE `appointments` (
-        `id` int(11) NOT NULL,
-        `user_id` int(11) NOT NULL,
-        `timeslot` int(11) NOT NULL,
-        `start` datetime NOT NULL,
-        `end` datetime NOT NULL,
-        `type` varchar(255) NOT NULL
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;';
+    $sql = "CREATE TABLE appointments (
+        id int(11) NOT NULL,
+        user_id int(11) NOT NULL,
+        timeslot int(11) NOT NULL,
+        start datetime NOT NULL,
+        end datetime NOT NULL,
+        type varchar(255) NOT NULL
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
     $connection->exec($sql);
     echo "Success: Table added! <br><br><br>";
 } catch (PDOException $e) {
