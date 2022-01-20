@@ -159,7 +159,7 @@ try {
 try {
     echo "Adding data: appointments...<br>";
     $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-    $sql = "INSERT INTO appointments (id, user_id, timeslot, start, end, type) VALUES
+    $sql = "INSERT INTO appointments (id, user_id, timeslot, starttime, endtime, type) VALUES
     (20, 16, 1, '2022-01-26 10:00:00', '2022-01-26 10:45:00', 'Clippers');";
     $connection->exec($sql);
     echo "Success: Data added! <br><br><br>";
