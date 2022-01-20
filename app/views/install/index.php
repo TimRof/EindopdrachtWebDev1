@@ -33,8 +33,8 @@ try {
         id SERIAL PRIMARY KEY,
         user_id int NOT NULL,
         timeslot int NOT NULL,
-        start timestamp NOT NULL,
-        end timestamp NOT NULL,
+        starttime timestamp NOT NULL,
+        endtime timestamp NOT NULL,
         type varchar(255) NOT NULL
       )";
     $connection->exec($sql);
@@ -145,9 +145,9 @@ try {
 try {
     echo "Adding data: usersbasic...<br>";
     $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-    $sql = "INSERT INTO usersbasic (id, name, email, password_hash, admin) VALUES
-    (1, 'admin', 'admin@admin.admin', '$2y$10$DKLbcAVXyfrbiDfyPxxMzeA5Ulg1gTJwnfmLXpcjYucY3Izu34tzW', 1),
-    (16, 'Mark de Haan', 'Mark.deHaan@inholland.nl', '$2y$10$NzFniVgWB3Dm8duJrhdUnOnG8PlgFQdLGOFS1fKdJVY2HjWCQV4eS', NULL);";
+    $sql = 'INSERT INTO usersbasic (id, name, email, password_hash, admin) VALUES
+    (1, admin, admin@admin.admin, $2y$10$DKLbcAVXyfrbiDfyPxxMzeA5Ulg1gTJwnfmLXpcjYucY3Izu34tzW, 1),
+    (16, Mark de Haan, Mark.deHaan@inholland.nl, $2y$10$NzFniVgWB3Dm8duJrhdUnOnG8PlgFQdLGOFS1fKdJVY2HjWCQV4eS, NULL);';
     $connection->exec($sql);
     echo "Success: Data added! <br><br><br>";
 } catch (PDOException $e) {
@@ -157,7 +157,7 @@ try {
 try {
     echo "Adding data: appointments...<br>";
     $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-    $sql = "INSERT INTO appointments (id, user_id, timeslot, start, end, type) VALUES
+    $sql = "INSERT INTO appointments (id, user_id, timeslot, starttime, endtime, type) VALUES
     (20, 16, 1, '2022-01-26 10:00:00', '2022-01-26 10:45:00', 'Clippers');";
     $connection->exec($sql);
     echo "Success: Data added! <br><br><br>";
