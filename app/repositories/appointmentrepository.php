@@ -18,6 +18,19 @@ class AppointmentRepository extends Repository
 
         return $stmt->fetchAll();
     }
+    function getAllCurrent()
+    {
+        $sql = 'SELECT appointments.id, user_id, timeslot, start, end, type, usersbasic.name, usersbasic.email FROM appointments INNER JOIN usersbasic ON appointments.user_id = usersbasic.id WHERE START
+        >= :currentDate';
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue(':currentDate', date('Y-m-d H:i:s', strtotime('-1 hour')), PDO::PARAM_STR);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'appointment');
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
     function getAllByDate($selectedDate)
     {
         $dayAfter = clone $selectedDate;
@@ -50,6 +63,15 @@ class AppointmentRepository extends Repository
             return $stmt->execute();
         }
         return false;
+    }
+    public function delete($id)
+    {
+        $sql = 'DELETE FROM appointments WHERE appointments.id = :id';
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+
+        return $stmt->execute();
     }
     private function validate($appointment)
     {
@@ -90,5 +112,19 @@ class AppointmentRepository extends Repository
         }
 
         return false;
+    }
+    public function updateAppointment($type, $id)
+    {
+        $sql = 'UPDATE appointments
+        INNER JOIN types
+        ON types.id = :type
+        SET appointments.type = types.type
+        WHERE appointments.id = :id';
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->bindValue(':type', $type, PDO::PARAM_STR);
+
+        return $stmt->execute();
     }
 }

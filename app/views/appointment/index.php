@@ -1,5 +1,4 @@
 <?php
-
 include_once __DIR__ . '/../header.php';
 include_once __DIR__ . '/../nav.php';
 $PageTitle = "The Hair Company - Appointment";
@@ -30,8 +29,8 @@ $PageTitle = "The Hair Company - Appointment";
         </div>
 
         <hr>
-        <input type="text" id="hiddendate" name="hiddendate" value="">
-        <input type="text" id="hiddendatetime" name="hiddendatetime" value="">
+        <input type="text" id="hiddendate" name="hiddendate" value="" hidden>
+        <input type="text" id="hiddendatetime" name="hiddendatetime" value="" hidden>
         <div class="d-flex justify-content-center mt-3 login_container">
             <input class="btn btn-lg btn-primary me-1 rounded-pill m-2" type="submit" value="Make appointment">
         </div>
@@ -74,8 +73,7 @@ include_once __DIR__ . '/../footer.php';
                 date: document.getElementById('hiddendatetime').value
             },
         }).done(function(res) {
-            console.log(res),
-                makeSlotButtons(res);
+            makeSlotButtons(res);
         })
     }
 

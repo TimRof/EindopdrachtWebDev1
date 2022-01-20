@@ -2,24 +2,19 @@
 require __DIR__ . '/controller.php';
 require __DIR__ . '/../services/userservice.php';
 
-class LoginController extends Controller
+class DashboardController extends Controller
 {
     public function index()
     {
-
-        try {
-            error_reporting(0);
-            $email = $_SESSION['POST'];
-            unset($_SESSION['POST']);
-        } catch (\Throwable $th) {
-            //ignore
-        }
-
-
-        try {
-            error_reporting(0);
-            require __DIR__ . '/../views/login/index.php';
-        } catch (\Throwable $th) {
+        if (isset($_SESSION['admin'])) {
+            try {
+                error_reporting(0);
+                require __DIR__ . '/../views/dashboard/index.php';
+            } catch (\Throwable $th) {
+                $this->redirect('/404');
+                die();
+            }
+        } else {
             $this->redirect('/404');
             die();
         }
@@ -30,24 +25,15 @@ class LoginController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userService = new UserService();
             $user = $userService->login($_POST['email'], $_POST['password']);
+
             if ($user) {
                 $_SESSION['user_id'] = $user->id;
                 $_SESSION['user_name'] = $user->name;
-                $_SESSION['admin'] = $user->admin;
                 $this->redirect('/login/success');
             } else {
                 $_SESSION['POST'] = $_POST['email'];
                 $this->redirect('/login');
             }
-        } else {
-            $this->redirect('/404');
-            die();
-        }
-    }
-    public function success()
-    {
-        if (isset($_SESSION['user_id'])) {
-            require __DIR__ . '/../views/login/success.php';
         } else {
             $this->redirect('/404');
             die();

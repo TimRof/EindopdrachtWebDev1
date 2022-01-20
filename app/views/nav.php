@@ -16,16 +16,15 @@
                             <a href="/signup" class="btn btn-primary me-3 rounded-pill" role="button">Sign up</a>
                         </li>
                     <?php else : ?>
+                        <?php if (isset($_SESSION['admin'])) : ?>
+                            <li class="nav-item">
+                                <a href="/dashboard" class="btn btn-primary me-3 rounded-pill" role="button">Dashboard</a>
+                            </li>
+                        <?php endif; ?>
                         <li class="nav-item">
                             <a href="/logout" class="btn btn-primary me-3 rounded-pill" role="button">Logout</a>
                         </li>
                     <?php endif; ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span class="basic-color badge badge-pill rounded-circle"></span>
-                            <span><i class="basic-color fa-solid fa-cart-shopping" style="font-size: 1.5em;"></i></span>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </nav>

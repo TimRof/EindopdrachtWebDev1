@@ -8,6 +8,14 @@ class UserRepository extends Repository
     public $errors = [];
     public function getAll()
     {
+        $sql = 'SELECT id, name FROM usersbasic';
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'user');
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
     public function insert($user)
     {

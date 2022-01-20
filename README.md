@@ -1,29 +1,27 @@
-# Docker template for PHP projects
-This repository provides a starting template for PHP application development.
+# Eindopdracht Webdevelopment 1
 
-It contains:
-* NGINX webserver
-* PHP FastCGI Process Manager with PDO MySQL support
-* MariaDB (GPL MySQL fork)
-* PHPMyAdmin
+By: Tim Roffelsen 672395
 
-## Installation
+## Introduction
 
-1. Install Docker Desktop on Windows or Mac, or Docker Engine on Linux.
-1. Clone the project
+Dit is mijn eindproject voor Webdevelopment 1.
 
-## Usage
+Ik heb een online kappers site gemaakt waar je kan: registreren, inloggen en natuurlijk een afspraak maken. Je kan maximaal 3 weken van te voren een afspraak maken, en je kan geen afspraak maken op een datum of tijdstip dat al geweest is.
 
-In a terminal, run:
-```bash
-docker-compose up
+Als je het admin hebt kun je ook: alle huidige afspraken inzien, updaten, verwijderen en de api van alle huidige afspraken zien (te vinden in de footer).
+
+## Login info
+
+**User account**
+
+```
+Email: Mark.deHaan@inholland.nl
+Password: secret123
 ```
 
-NGINX will now serve files in the app/public folder. Visit localhost in your browser to check.
-PHPMyAdmin is accessible on localhost:8080
+**Admin account**
 
-If you want to stop the containers, press Ctrl+C. 
-Or run:
-```bash
-docker-compose down
+```
+Email: admin@admin.admin
+Password: secret123
 ```

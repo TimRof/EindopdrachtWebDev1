@@ -48,6 +48,12 @@ class AppointmentController extends Controller
 
         return $timeslots;
     }
+    public function getTaken()
+    {
+        header("Content-type:application/json");
+        $this->appointmentService = new AppointmentService();
+        echo json_encode($this->appointmentService->getAllCurrent(), JSON_PRETTY_PRINT);
+    }
     public function getSlotsByDate($data)
     {
         $date = new DateTime($data);
@@ -75,9 +81,11 @@ class AppointmentController extends Controller
     }
     public function api()
     {
-        header("Content-type:application/json");
-        $this->appointmentService = new AppointmentService();
-        echo json_encode($this->getSlots(), JSON_PRETTY_PRINT);
+        if (isset($_SESSION['admin'])) {
+            header("Content-type:application/json");
+            $this->appointmentService = new AppointmentService();
+            echo json_encode($this->appointmentService->getAllCurrent(), JSON_PRETTY_PRINT);
+        }
     }
     public function getFreeSlots()
     {
@@ -119,6 +127,22 @@ class AppointmentController extends Controller
             } catch (\Throwable $th) {
                 $this->redirect('/appointment/failed');
             }
+        }
+    }
+    public function update()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            $type = $_POST['type'];
+            $this->appointmentService = new AppointmentService();
+            $this->appointmentService->updateAppointment($type, $id);
+        }
+    }
+    public function delete()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            var_dump($_POST);
+            $this->appointmentService->delete($_POST['id']);
         }
     }
     public function success()

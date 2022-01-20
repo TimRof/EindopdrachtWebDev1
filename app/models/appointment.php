@@ -77,6 +77,16 @@ class Appointment implements \JsonSerializable
 
         return $this;
     }
+    public function getUser_id(): int
+    {
+        return $this->user_id;
+    }
+    public function setUser_id(int $user_id): self
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
     public function jsonSerialize(): mixed
     {
         return get_object_vars($this);

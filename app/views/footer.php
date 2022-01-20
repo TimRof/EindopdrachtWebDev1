@@ -4,7 +4,11 @@
     <hr id="footerhr">
     <div class="text-center" id="copyright">
         Copyright © 2022 The Hare Company
+        <?php if (isset($_SESSION['admin'])) : ?>
+            -<a href="/appointment/api" class="btn login-btn btn-link px-1 me-1" role="button">API</a>
+        <?php endif; ?>
     </div>
+
 </footer>
 <!-- Footer -->
 </div>

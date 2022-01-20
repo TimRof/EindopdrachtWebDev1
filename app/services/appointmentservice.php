@@ -8,6 +8,11 @@ class AppointmentService
         $repository = new AppointmentRepository();
         return $repository->getAll();
     }
+    public function getAllCurrent()
+    {
+        $repository = new AppointmentRepository();
+        return $repository->getAllCurrent();
+    }
     public function getAllByDate($date)
     {
         $repository = new AppointmentRepository();
@@ -50,5 +55,15 @@ class AppointmentService
     {
         $repository = new AppointmentRepository();
         return $repository->makeAppointment($type, $timeslot, $id);
+    }
+    public function updateAppointment($type, $id)
+    {
+        $repository = new AppointmentRepository();
+        return $repository->updateAppointment($type, $id);
+    }
+    public function delete($id)
+    {
+        $repository = new AppointmentRepository();
+        return $repository->delete($id);
     }
 }
