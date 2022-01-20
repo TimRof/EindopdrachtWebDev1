@@ -145,9 +145,11 @@ try {
 try {
     echo "Adding data: usersbasic...<br>";
     $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-    $sql = 'INSERT INTO usersbasic (id, name, email, password_hash, admin) VALUES
-    (1, admin, admin@admin.admin, $2y$10$DKLbcAVXyfrbiDfyPxxMzeA5Ulg1gTJwnfmLXpcjYucY3Izu34tzW, 1),
-    (16, Mark de Haan, Mark.deHaan@inholland.nl, $2y$10$NzFniVgWB3Dm8duJrhdUnOnG8PlgFQdLGOFS1fKdJVY2HjWCQV4eS, NULL);';
+    $hash1 = '$2y$10$DKLbcAVXyfrbiDfyPxxMzeA5Ulg1gTJwnfmLXpcjYucY3Izu34tzW';
+    $hash2 = '$2y$10$NzFniVgWB3Dm8duJrhdUnOnG8PlgFQdLGOFS1fKdJVY2HjWCQV4eS';
+    $sql = "INSERT INTO usersbasic (id, name, email, password_hash, admin) VALUES
+    (1, 'admin', 'admin@admin.admin', '$hash1', 1),
+    (16, 'Mark de Haan', 'Mark.deHaan@inholland.nl', '$hash2', NULL);";
     $connection->exec($sql);
     echo "Success: Data added! <br><br><br>";
 } catch (PDOException $e) {
@@ -157,7 +159,7 @@ try {
 try {
     echo "Adding data: appointments...<br>";
     $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-    $sql = "INSERT INTO appointments (id, user_id, timeslot, starttime, endtime, type) VALUES
+    $sql = "INSERT INTO appointments (id, user_id, timeslot, start, end, type) VALUES
     (20, 16, 1, '2022-01-26 10:00:00', '2022-01-26 10:45:00', 'Clippers');";
     $connection->exec($sql);
     echo "Success: Data added! <br><br><br>";
