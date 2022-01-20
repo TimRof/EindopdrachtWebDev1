@@ -5,7 +5,7 @@ require __DIR__ . '../../../dbconfig.php';
 try {
     echo "Creating Database...<br><br>";
     $connection = new PDO("$type:host=$servername", $username, $password);
-    $sql = "CREATE DATABASE appointment_manager";
+    $sql = 'CREATE DATABASE appointment_manager';
     // set the PDO error mode to exception
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $connection->exec($sql);
@@ -19,14 +19,14 @@ echo "*** Adding tables ***<br><br>";
 try {
     echo "Creating Table: appointments...<br>";
     $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-    $sql = "CREATE TABLE `appointments` (
+    $sql = 'CREATE TABLE `appointments` (
         `id` int(11) NOT NULL,
         `user_id` int(11) NOT NULL,
         `timeslot` int(11) NOT NULL,
         `start` datetime NOT NULL,
         `end` datetime NOT NULL,
         `type` varchar(255) NOT NULL
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;';
     $connection->exec($sql);
     echo "Success: Table added! <br><br><br>";
 } catch (PDOException $e) {
