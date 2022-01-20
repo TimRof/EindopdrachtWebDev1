@@ -8,63 +8,54 @@ try {
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
-try {
-    $connection->query("CREATE TABLE article (
-    id SERIAL PRIMARY KEY,
-    title varchar(255) NOT NULL,
-    content varchar(10000) NOT NULL,
-    author varchar(255) NOT NULL,
-    posted_at timestamp NOT NULL
-  )");
-} catch (PDOException $e) {
-    echo "Query failed: " . $e->getMessage();
+
+if ($type == "mysql") {
+    // create database
+    try {
+        echo "Creating Database...<br><br>";
+        $connection = new PDO("$type:host=$servername", $username, $password);
+        $sql = 'CREATE DATABASE appointment_manager';
+        // set the PDO error mode to exception
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $connection->exec($sql);
+        echo "Success: Database added! <br><br><br>";
+    } catch (PDOException $e) {
+        echo "Failed: " . $e->getMessage() . "<br><br><br>";
+    }
 }
-// // create database
-// try {
-//     echo "Creating Database...<br><br>";
-//     $connection = new PDO("$type:host=$servername", $username, $password);
-//     $sql = 'CREATE DATABASE appointment_manager';
-//     // set the PDO error mode to exception
-//     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//     $connection->exec($sql);
-//     echo "Success: Database added! <br><br><br>";
-// } catch (PDOException $e) {
-//     echo "Failed: " . $e->getMessage() . "<br><br><br>";
-// }
 
-// echo "*** Adding tables ***<br><br>";
-// // create appointments table
-// try {
-//     echo "Creating Table: appointments...<br>";
-//     $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-//     $sql = "CREATE TABLE appointments (
-//         id int(11) NOT NULL,
-//         user_id int(11) NOT NULL,
-//         timeslot int(11) NOT NULL,
-//         start datetime NOT NULL,
-//         end datetime NOT NULL,
-//         type varchar(255) NOT NULL
-//       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-//     $connection->exec($sql);
-//     echo "Success: Table added! <br><br><br>";
-// } catch (PDOException $e) {
-//     echo "Failed: " . $e->getMessage() . "<br>";
-// }
 
-// // create types table
-// try {
-//     echo "Creating Table: types...<br>";
-//     $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-//     $sql = "CREATE TABLE `types` (
-//         `id` int(11) NOT NULL,
-//         `type` varchar(255) NOT NULL,
-//         `price` decimal(10,2) NOT NULL
-//       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-//     $connection->exec($sql);
-//     echo "Success: Table added! <br><br><br>";
-// } catch (PDOException $e) {
-//     echo "Failed: " . $e->getMessage() . "<br>";
-// }
+echo "*** Adding tables ***<br><br>";
+// create appointments table
+try {
+    echo "Creating Table: appointments...<br>";
+    $sql = "CREATE TABLE appointments (
+        id int NOT NULL,
+        user_id int NOT NULL,
+        timeslot int NOT NULL,
+        start datetime NOT NULL,
+        end datetime NOT NULL,
+        type varchar(255) NOT NULL
+      )";
+    $connection->exec($sql);
+    echo "Success: Table added! <br><br><br>";
+} catch (PDOException $e) {
+    echo "Failed: " . $e->getMessage() . "<br>";
+}
+
+// create types table
+try {
+    echo "Creating Table: types...<br>";
+    $sql = "CREATE TABLE types (
+        id int NOT NULL,
+        type varchar(255) NOT NULL,
+        price decimal(10,2) NOT NULL
+      )";
+    $connection->exec($sql);
+    echo "Success: Table added! <br><br><br>";
+} catch (PDOException $e) {
+    echo "Failed: " . $e->getMessage() . "<br>";
+}
 
 // // create usersbasic table
 // try {
