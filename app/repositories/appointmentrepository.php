@@ -103,15 +103,17 @@ class AppointmentRepository extends Repository
     }
     public function updateAppointment($type, $id)
     {
-        $sql = 'UPDATE appointments
+        try {
+            $sql = 'UPDATE appointments
         SET appointments.type = :type
         WHERE appointments.id = :id';
-        $stmt = $this->connection->prepare($sql);
+            $stmt = $this->connection->prepare($sql);
 
-        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
-        $stmt->bindValue(':type', $type, PDO::PARAM_STR);
-        var_dump($stmt);
-
-        return $stmt->execute();
+            $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+            $stmt->bindValue(':type', $type, PDO::PARAM_STR);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Failed: " . $e->getMessage() . "<br>";
+        }
     }
 }
