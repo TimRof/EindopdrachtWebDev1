@@ -25,3 +25,9 @@ Password: secret123
 Email: admin@admin.admin
 Password: secret123
 ```
+
+**Database install**
+
+```
+Url: localhost/install
+```
