@@ -201,22 +201,7 @@ if ($type == "mysql") {
     }
 
     echo "*** Adding tables ***<br><br>";
-    // create appointments table
-    try {
-        echo "Creating Table: appointments...<br>";
-        $sql = "CREATE TABLE appointments (
-        id SERIAL PRIMARY KEY,
-        user_id SERIAL NOT NULL REFERENCES usersbasic (id),
-        type SERIAL NOT NULL REFERENCES types (id),
-        timeslot int NOT NULL,
-        starttime timestamp NOT NULL,
-        endtime timestamp NOT NULL
-      )";
-        $connection->exec($sql);
-        echo "Success: Table added! <br><br><br>";
-    } catch (PDOException $e) {
-        echo "Failed: " . $e->getMessage() . "<br>";
-    }
+
 
     // create types table
     try {
@@ -241,6 +226,22 @@ if ($type == "mysql") {
         email varchar(255) NOT NULL UNIQUE,
         password_hash varchar(255) NOT NULL,
         admin int DEFAULT NULL
+      )";
+        $connection->exec($sql);
+        echo "Success: Table added! <br><br><br>";
+    } catch (PDOException $e) {
+        echo "Failed: " . $e->getMessage() . "<br>";
+    }
+    // create appointments table
+    try {
+        echo "Creating Table: appointments...<br>";
+        $sql = "CREATE TABLE appointments (
+        id SERIAL PRIMARY KEY,
+        user_id SERIAL NOT NULL REFERENCES usersbasic (id),
+        type SERIAL NOT NULL REFERENCES types (id),
+        timeslot int NOT NULL,
+        starttime timestamp NOT NULL,
+        endtime timestamp NOT NULL
       )";
         $connection->exec($sql);
         echo "Success: Table added! <br><br><br>";
