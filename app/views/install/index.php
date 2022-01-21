@@ -206,8 +206,8 @@ if ($type == "mysql") {
         echo "Creating Table: appointments...<br>";
         $sql = "CREATE TABLE appointments (
         id SERIAL PRIMARY KEY,
-        user_id int NOT NULL,
-        type int NOT NULL,
+        user_id SERIAL NOT NULL REFERENCES usersbasic (id),
+        type SERIAL NOT NULL REFERENCES types (id),
         timeslot int NOT NULL,
         starttime timestamp NOT NULL,
         endtime timestamp NOT NULL
@@ -238,7 +238,7 @@ if ($type == "mysql") {
         $sql = "CREATE TABLE usersbasic (
         id SERIAL PRIMARY KEY,
         name varchar(50) NOT NULL,
-        email varchar(255) NOT NULL,
+        email varchar(255) NOT NULL UNIQUE,
         password_hash varchar(255) NOT NULL,
         admin int DEFAULT NULL
       )";
@@ -249,44 +249,7 @@ if ($type == "mysql") {
     }
 
     echo "*** Creating Indexes ***<br><br>";
-    // create appointments indexes
-    try {
-        echo "Creating Indexes: appointments...<br>";
-        $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-        $sql = "ALTER TABLE appointments
-    ADD PRIMARY KEY (id),
-    ADD KEY user_id (user_id),
-  ADD KEY type (type);;";
-        $connection->exec($sql);
-        echo "Success: Indexes added! <br><br><br>";
-    } catch (PDOException $e) {
-        echo "Failed: " . $e->getMessage() . "<br>";
-    }
-
-    // create types indexes
-    try {
-        echo "Creating Indexes: types...<br>";
-        $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-        $sql = "ALTER TABLE types
-    ADD PRIMARY KEY (id);";
-        $connection->exec($sql);
-        echo "Success: Indexes added! <br><br><br>";
-    } catch (PDOException $e) {
-        echo "Failed: " . $e->getMessage() . "<br>";
-    }
-
-    // create usersbasic indexes
-    try {
-        echo "Creating Indexes: usersbasic...<br>";
-        $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-        $sql = "ALTER TABLE usersbasic
-    ADD PRIMARY KEY (id),
-    ADD UNIQUE KEY email (email);";
-        $connection->exec($sql);
-        echo "Success: Indexes added! <br><br><br>";
-    } catch (PDOException $e) {
-        echo "Failed: " . $e->getMessage() . "<br>";
-    }
+    
     echo "*** Adding Constraints ***<br><br>";
 
     // create constraint

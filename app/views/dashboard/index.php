@@ -45,7 +45,7 @@ include_once __DIR__ . '/../footer.php';
     function AjaxReqTaken() {
         $.ajax({
             type: 'GET',
-            url: 'appointment/getTaken',
+            url: 'appointment/api',
         }).done(function(res) {
             console.log(res);
             makeTakenList(res);
