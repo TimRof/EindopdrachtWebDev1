@@ -111,7 +111,7 @@ include_once __DIR__ . '/../footer.php';
             updateButton.onclick = function(clicked_id) {
                 update(this.id);
             }
-            var liDescription = document.createTextNode(slot.name + " (" + slot.email + ")" + " - " + slot.type + " on " + slot.start);
+            var liDescription = document.createTextNode(slot.name + " (" + slot.email + ")" + " - " + slot.type + " on " + slot.starttime);
             var br = document.createElement("br");
             li.appendChild(liDescription);
             li.appendChild(br);

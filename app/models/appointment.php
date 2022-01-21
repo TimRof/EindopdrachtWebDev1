@@ -7,8 +7,8 @@ class Appointment implements \JsonSerializable
     private $user_id;
     private $type;
     private $timeslot;
-    private $start;
-    private $end;
+    private $starttime;
+    private $endtime;
     private $duration;
     private $booked;
     private $taken;
@@ -39,21 +39,21 @@ class Appointment implements \JsonSerializable
     }
     public function getStart(): DateTime
     {
-        return $this->start;
+        return $this->starttime;
     }
-    public function setStart(DateTime $start): self
+    public function setStart(DateTime $starttime): self
     {
-        $this->start = $start;
+        $this->starttime = $starttime;
 
         return $this;
     }
     public function getEnd(): DateTime
     {
-        return $this->end;
+        return $this->endtime;
     }
-    public function setEnd(DateTime $end): self
+    public function setEnd(DateTime $endtime): self
     {
-        $this->end = $end;
+        $this->endtime = $endtime;
 
         return $this;
     }

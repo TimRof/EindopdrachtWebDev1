@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
 require __DIR__ . '/../repositories/repository.php';
 require __DIR__ . '/../models/appointment.php';
@@ -20,7 +22,7 @@ class AppointmentRepository extends Repository
     }
     function getAllCurrent()
     {
-        $sql = 'SELECT appointments.id, user_id, timeslot, starttime, end, type, usersbasic.name, usersbasic.email FROM appointments INNER JOIN usersbasic ON appointments.user_id = usersbasic.id WHERE starttime
+        $sql = 'SELECT appointments.id, user_id, timeslot, starttime, endtime, type, usersbasic.name, usersbasic.email FROM appointments INNER JOIN usersbasic ON appointments.user_id = usersbasic.id WHERE starttime
         >= :currentDate';
 
         $stmt = $this->connection->prepare($sql);
@@ -52,13 +54,14 @@ class AppointmentRepository extends Repository
     {
         $this->validate($appointment);
         if (empty($appointment->errors)) {
-            $sql = 'INSERT INTO appointments (user_id, starttime, end, type) VALUES (:user_id, :starttime, :end, :type)';
+            $sql = 'INSERT INTO appointments (user_id, starttime, endtime, type) VALUES (:user_id, :starttime, :endtime, :type)';
             $stmt = $this->connection->prepare($sql);
 
             $stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
             $stmt->bindValue(':starttime', $appointment->getStart(), PDO::PARAM_STR);
-            $stmt->bindValue(':end', $appointment->getEnd(), PDO::PARAM_STR);
+            $stmt->bindValue(':endtime', $appointment->getEnd(), PDO::PARAM_STR);
             $stmt->bindValue(':type', $appointment->getType(), PDO::PARAM_STR);
+            var_dump($stmt);
 
             return $stmt->execute();
         }
@@ -99,13 +102,13 @@ class AppointmentRepository extends Repository
     {
         $this->validate($timeslot);
         if (empty($timeslot->errors)) {
-            $sql = 'INSERT INTO appointments (user_id, timeslot, starttime, end, type) VALUES (:user_id, :timeslot, :starttime, :end, :type)';
+            $sql = 'INSERT INTO appointments (user_id, timeslot, starttime, endtime, type) VALUES (:user_id, :timeslot, :starttime, :endtime, :type)';
             $stmt = $this->connection->prepare($sql);
 
             $stmt->bindValue(':user_id', $id, PDO::PARAM_STR);
             $stmt->bindValue(':timeslot', $timeslot->getTimeSlot(), PDO::PARAM_STR);
             $stmt->bindValue(':starttime', date_format($timeslot->getStart(), 'Y-m-d H:i:s'), PDO::PARAM_STR);
-            $stmt->bindValue(':end', date_format($timeslot->getEnd(), 'Y-m-d H:i:s'), PDO::PARAM_STR);
+            $stmt->bindValue(':endtime', date_format($timeslot->getEnd(), 'Y-m-d H:i:s'), PDO::PARAM_STR);
             $stmt->bindValue(':type', $type->type, PDO::PARAM_STR);
 
             return $stmt->execute();

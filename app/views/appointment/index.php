@@ -96,13 +96,13 @@ include_once __DIR__ . '/../footer.php';
             label.classList.add('m-2');
             label.htmlFor = 'time' + element.timeslot;
 
-            var start = element.start.date.substring(11, 16);
-            var end = element.end.date.substring(11, 16);
+            var start = element.starttime.date.substring(11, 16);
+            var end = element.endtime</script>.date.substring(11, 16);
             var description = document.createTextNode(start + " - " + end);
             label.appendChild(description);
 
             var starttime = new Date();
-            starttime.setTime(Date.parse(element.start.date));
+            starttime.setTime(Date.parse(element.starttime.date));
 
             if (element.taken || starttime < now && (nowDay.setHours(0, 0, 0, 0) == starttime.setHours(0, 0, 0, 0))) {
                 radio.disabled = true;
