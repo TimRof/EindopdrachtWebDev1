@@ -105,8 +105,8 @@ class AppointmentRepository extends Repository
     {
         try {
             $sql = 'UPDATE appointments
-        SET appointments.type = :type
-        WHERE appointments.id = :id';
+        SET type = :type
+        WHERE id = :id';
             $stmt = $this->connection->prepare($sql);
 
             $stmt->bindValue(':id', $id, PDO::PARAM_STR);
