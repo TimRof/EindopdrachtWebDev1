@@ -17,23 +17,6 @@ if ($type == "mysql") {
         echo "Failed: " . $e->getMessage() . "<br><br><br>";
     }
     echo "*** Adding tables ***<br><br>";
-    // create appointments table
-    try {
-        echo "Creating Table: appointments...<br>";
-        $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
-        $sql = "CREATE TABLE `appointments` (
-            `id` int(11) NOT NULL,
-            `user_id` int(11) NOT NULL,
-            `type` int(11) NOT NULL,
-            `timeslot` int(11) NOT NULL,
-            `starttime` datetime NOT NULL,
-            `endtime` datetime NOT NULL
-          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-        $connection->exec($sql);
-        echo "Success: Table added! <br><br><br>";
-    } catch (PDOException $e) {
-        echo "Failed: " . $e->getMessage() . "<br>";
-    }
 
     // create types table
     try {
@@ -59,6 +42,23 @@ if ($type == "mysql") {
         `password_hash` varchar(255) NOT NULL,
         `admin` int(11) DEFAULT NULL
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+        $connection->exec($sql);
+        echo "Success: Table added! <br><br><br>";
+    } catch (PDOException $e) {
+        echo "Failed: " . $e->getMessage() . "<br>";
+    }
+    // create appointments table
+    try {
+        echo "Creating Table: appointments...<br>";
+        $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
+        $sql = "CREATE TABLE `appointments` (
+            `id` int(11) NOT NULL,
+            `user_id` int(11) NOT NULL,
+            `type` int(11) NOT NULL,
+            `timeslot` int(11) NOT NULL,
+            `starttime` datetime NOT NULL,
+            `endtime` datetime NOT NULL
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         $connection->exec($sql);
         echo "Success: Table added! <br><br><br>";
     } catch (PDOException $e) {
@@ -249,7 +249,7 @@ if ($type == "mysql") {
     }
 
     echo "*** Creating Indexes ***<br><br>";
-    
+
     echo "*** Adding Constraints ***<br><br>";
 
     // create constraint
