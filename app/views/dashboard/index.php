@@ -67,8 +67,8 @@ include_once __DIR__ . '/../footer.php';
     function AjaxReqUpdate() {
         var id = document.getElementsByName('hiddenid')[0].value
         var type = document.querySelector('input[name="type-options"]:checked').value;
-        console.log("id: " + id);
-        console.log("type: " + type);
+        // console.log("id: " + id);
+        // console.log("type: " + type);
         $.ajax({
             type: 'POST',
             url: 'appointment/update',
@@ -77,7 +77,7 @@ include_once __DIR__ . '/../footer.php';
                 type: type
             },
         }).done(function(res) {
-            console.log("result:" + res);
+            console.log("result: " + res);
             AjaxReqTaken();
             $('#updateModal').modal('toggle');
         })
