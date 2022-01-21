@@ -220,8 +220,7 @@ a:active {
 .alert {
   width: 300px;
   text-align: center;
-  margin-left: 2%;
-  margin-top: 1%;
+  margin: auto;
 }
 .content {
   max-width: 30%;

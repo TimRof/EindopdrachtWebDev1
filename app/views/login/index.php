@@ -23,14 +23,19 @@ include_once __DIR__ . '/../nav.php';
             </div>
 
             <div class="d-flex justify-content-center mt-3 login_container">
-                <button class="btn btn-primary rounded-pill" type="submit">Login</button>
+                <div>
+                    <button class="btn btn-primary rounded-pill" type="submit">Login</button>
+                </div>
+
             </div>
-            <?php if ($user == false && !is_null($email)) { ?>
-                <p class="alert alert-danger" role="alert">
-                    <b>Incorrect Credentials</b><br>
-                    Verify your email address and password and try again.
-                </p>
-            <?php } ?>
+            <div><?php if ($user == false && !is_null($email)) { ?>
+                    <hr>
+                    <p class="alert alert-danger" role="alert">
+                        <b>Incorrect Credentials</b><br>
+                        Verify your email address and password and try again.
+                    </p>
+                <?php } ?>
+            </div>
         </form>
     </div>
 </div>
