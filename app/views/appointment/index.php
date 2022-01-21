@@ -97,7 +97,7 @@ include_once __DIR__ . '/../footer.php';
             label.htmlFor = 'time' + element.timeslot;
 
             var start = element.starttime.date.substring(11, 16);
-            var end = element.endtime</script>.date.substring(11, 16);
+            var end = element.endtime.date.substring(11, 16);
             var description = document.createTextNode(start + " - " + end);
             label.appendChild(description);
 
