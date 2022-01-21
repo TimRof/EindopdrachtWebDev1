@@ -110,6 +110,7 @@ class AppointmentRepository extends Repository
 
         $stmt->bindValue(':id', $id, PDO::PARAM_STR);
         $stmt->bindValue(':type', $type, PDO::PARAM_STR);
+        var_dump($stmt);
 
         return $stmt->execute();
     }
