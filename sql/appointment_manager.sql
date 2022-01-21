@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Jan 20, 2022 at 07:01 PM
+-- Generation Time: Jan 21, 2022 at 03:04 PM
 -- Server version: 10.6.5-MariaDB-1:10.6.5+maria~focal
 -- PHP Version: 7.4.27
 
@@ -30,18 +30,18 @@ SET time_zone = "+00:00";
 CREATE TABLE `appointments` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `type` int(11) NOT NULL,
   `timeslot` int(11) NOT NULL,
-  `start` datetime NOT NULL,
-  `end` datetime NOT NULL,
-  `type` varchar(255) NOT NULL
+  `starttime` datetime NOT NULL,
+  `endtime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`id`, `user_id`, `timeslot`, `start`, `end`, `type`) VALUES
-(20, 16, 1, '2022-01-26 10:00:00', '2022-01-26 10:45:00', 'Clippers');
+INSERT INTO `appointments` (`id`, `user_id`, `type`, `timeslot`, `starttime`, `endtime`) VALUES
+(20, 16, 3, 1, '2022-01-26 10:00:00', '2022-01-26 10:45:00');
 
 -- --------------------------------------------------------
 
@@ -96,7 +96,8 @@ INSERT INTO `usersbasic` (`id`, `name`, `email`, `password_hash`, `admin`) VALUE
 --
 ALTER TABLE `appointments`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `type` (`type`);
 
 --
 -- Indexes for table `types`
@@ -125,7 +126,7 @@ ALTER TABLE `appointments`
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `usersbasic`
@@ -141,7 +142,8 @@ ALTER TABLE `usersbasic`
 -- Constraints for table `appointments`
 --
 ALTER TABLE `appointments`
-  ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usersbasic` (`id`);
+  ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usersbasic` (`id`),
+  ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`type`) REFERENCES `types` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

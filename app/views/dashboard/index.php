@@ -47,6 +47,7 @@ include_once __DIR__ . '/../footer.php';
             type: 'GET',
             url: 'appointment/getTaken',
         }).done(function(res) {
+            console.log(res);
             makeTakenList(res);
         })
     }

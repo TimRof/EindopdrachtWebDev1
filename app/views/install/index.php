@@ -22,13 +22,13 @@ if ($type == "mysql") {
         echo "Creating Table: appointments...<br>";
         $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
         $sql = "CREATE TABLE `appointments` (
-        `id` int(11) NOT NULL,
-        `user_id` int(11) NOT NULL,
-        `timeslot` int(11) NOT NULL,
-        `starttime` datetime NOT NULL,
-        `endtime` datetime NOT NULL,
-        `type` varchar(255) NOT NULL
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+            `id` int(11) NOT NULL,
+            `user_id` int(11) NOT NULL,
+            `type` int(11) NOT NULL,
+            `timeslot` int(11) NOT NULL,
+            `starttime` datetime NOT NULL,
+            `endtime` datetime NOT NULL
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         $connection->exec($sql);
         echo "Success: Table added! <br><br><br>";
     } catch (PDOException $e) {
@@ -69,8 +69,9 @@ if ($type == "mysql") {
     try {
         echo "Creating Indexes: appointments...<br>";
         $sql = "ALTER TABLE `appointments`
-    ADD PRIMARY KEY (`id`),
-    ADD KEY `user_id` (`user_id`);";
+        ADD PRIMARY KEY (`id`),
+        ADD KEY `user_id` (`user_id`),
+        ADD KEY `type` (`type`);";
         $connection->exec($sql);
         echo "Success: Indexes added! <br><br><br>";
     } catch (PDOException $e) {
@@ -138,8 +139,9 @@ if ($type == "mysql") {
         echo "Creating constraint...<br>";
         $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
         $sql = "ALTER TABLE `appointments`
-    ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usersbasic` (`id`);
-  COMMIT;";
+        ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usersbasic` (`id`),
+        ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`type`) REFERENCES `types` (`id`);
+      COMMIT;";
         $connection->exec($sql);
         echo "Success: Indexes added! <br><br><br>";
     } catch (PDOException $e) {
@@ -181,7 +183,7 @@ if ($type == "mysql") {
         echo "Adding data: appointments...<br>";
         $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
         $sql = "INSERT INTO `appointments` (`id`, `user_id`, `timeslot`, `starttime`, `endtime`, `type`) VALUES
-    (20, 16, 1, '2022-01-26 10:00:00', '2022-01-26 10:45:00', 'Clippers');";
+    (20, 16, 1, '2022-01-26 10:00:00', '2022-01-26 10:45:00', 3);";
         $connection->exec($sql);
         echo "Success: Data added! <br><br><br>";
     } catch (PDOException $e) {
@@ -205,10 +207,10 @@ if ($type == "mysql") {
         $sql = "CREATE TABLE appointments (
         id SERIAL PRIMARY KEY,
         user_id int NOT NULL,
+        type int NOT NULL,
         timeslot int NOT NULL,
         starttime timestamp NOT NULL,
-        endtime timestamp NOT NULL,
-        type varchar(255) NOT NULL
+        endtime timestamp NOT NULL
       )";
         $connection->exec($sql);
         echo "Success: Table added! <br><br><br>";
@@ -253,7 +255,8 @@ if ($type == "mysql") {
         $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
         $sql = "ALTER TABLE appointments
     ADD PRIMARY KEY (id),
-    ADD KEY user_id (user_id);";
+    ADD KEY user_id (user_id),
+  ADD KEY type (type);;";
         $connection->exec($sql);
         echo "Success: Indexes added! <br><br><br>";
     } catch (PDOException $e) {
@@ -291,8 +294,7 @@ if ($type == "mysql") {
         echo "Creating constraint...<br>";
         $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
         $sql = "ALTER TABLE appointments
-    ADD CONSTRAINT appointments_ibfk_1 FOREIGN KEY (user_id) REFERENCES usersbasic (id);
-  COMMIT;";
+        ADD CONSTRAINT appointments_ibfk_1 FOREIGN KEY (user_id) REFERENCES usersbasic (id), ADD CONSTRAINT appointments_ibfk_2 FOREIGN KEY (type) REFERENCES types (id); COMMIT;";
         $connection->exec($sql);
         echo "Success: Indexes added! <br><br><br>";
     } catch (PDOException $e) {
@@ -333,7 +335,7 @@ if ($type == "mysql") {
         echo "Adding data: appointments...<br>";
         $connection = new PDO("$type:host=$servername;dbname=$database", $username, $password);
         $sql = "INSERT INTO appointments (id, user_id, timeslot, starttime, endtime, type) VALUES
-    (20, 16, 1, '2022-01-26 10:00:00', '2022-01-26 10:45:00', 'Clippers');";
+    (20, 16, 1, '2022-01-26 10:00:00', '2022-01-26 10:45:00', 3);";
         $connection->exec($sql);
         echo "Success: Data added! <br><br><br>";
     } catch (PDOException $e) {

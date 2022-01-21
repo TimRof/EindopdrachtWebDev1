@@ -54,6 +54,13 @@ class AppointmentController extends Controller
         $this->appointmentService = new AppointmentService();
         echo json_encode($this->appointmentService->getAllCurrent(), JSON_PRETTY_PRINT);
     }
+    public function test()
+    {
+        echo "1";
+        $this->appointmentService = new AppointmentService();
+        $test = $this->appointmentService->getAllCurrent();
+        var_dump($test);
+    }
     public function getSlotsByDate($data)
     {
         $date = new DateTime($data);
@@ -111,15 +118,10 @@ class AppointmentController extends Controller
                     $timeslot = clone $s;
                 }
             }
-            foreach ($types as $t) {
-                if ($t->getId() == $_POST['type-options']) {
-                    $type = clone $t;
-                }
-            }
             $id = $_SESSION['user_id'];
             $this->appointmentService = new AppointmentService();
             try {
-                if ($this->appointmentService->makeAppointment($type, $timeslot, $id)) {
+                if ($this->appointmentService->makeAppointment($_POST['type-options'], $timeslot, $id)) {
                     $this->redirect('/appointment/success');
                 } else {
                     $this->redirect('/appointment/failed');
