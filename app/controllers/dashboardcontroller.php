@@ -11,7 +11,8 @@ class DashboardController extends Controller
                 error_reporting(0);
                 require __DIR__ . '/../views/dashboard/index.php';
             } catch (\Throwable $th) {
-                $this->redirect('/404');
+                //$this->redirect('/404');
+                var_dump($th);
                 die();
             }
         } else {
@@ -35,6 +36,7 @@ class DashboardController extends Controller
                 $this->redirect('/login');
             }
         } else {
+            echo "1";
             $this->redirect('/404');
             die();
         }

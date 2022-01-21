@@ -16,8 +16,7 @@ class AppointmentController extends Controller
                 $types = $this->appointmentService->getAllTypes();
                 $this->displayView($types);
             } catch (\Throwable $th) {
-                //$this->redirect('/404');
-                var_dump($th);
+                $this->redirect('/404');
                 die();
             }
         } else {
