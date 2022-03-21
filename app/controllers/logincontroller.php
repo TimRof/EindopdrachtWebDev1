@@ -36,7 +36,7 @@ class LoginController extends Controller
                 $_SESSION['admin'] = $user->admin;
                 $this->redirect('/login/success');
             } else {
-                $_SESSION['POST'] = $_POST['email'];
+                $_SESSION['POST'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
                 $this->redirect('/login');
             }
         } else {

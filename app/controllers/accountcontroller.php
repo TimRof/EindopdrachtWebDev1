@@ -7,7 +7,6 @@ class AccountController extends Controller
 {
     public function validateEmail()
     {
-        // check if post, then check 
         $userservice = new UserService();
         $isValid = $userservice->validateEmail($_GET['email']);
         header('Content-Type: application/json');

@@ -52,15 +52,15 @@ include_once __DIR__ . '/../footer.php';
     }
 
     function AjaxReqDelete(id) {
-        $.ajax({
-            type: 'POST',
-            url: 'appointment/delete',
-            data: {
-                id: id
-            },
-        }).done(function(res) {
-            AjaxReqTaken();
+        var data = new FormData();
+        data.append("json", JSON.stringify({
+            id: id
+        }));
+        fetch("/appointment/delete/", {
+            method: "POST",
+            body: data
         })
+        AjaxReqTaken();
     }
 
     function AjaxReqUpdate() {

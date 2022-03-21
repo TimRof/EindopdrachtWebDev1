@@ -24,14 +24,14 @@ class DashboardController extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userService = new UserService();
-            $user = $userService->login($_POST['email'], $_POST['password']);
+            $user = $userService->login(filter_var($_POST['email'], FILTER_SANITIZE_EMAIL), $_POST['password']);
 
             if ($user) {
                 $_SESSION['user_id'] = $user->id;
                 $_SESSION['user_name'] = $user->name;
                 $this->redirect('/login/success');
             } else {
-                $_SESSION['POST'] = $_POST['email'];
+                $_SESSION['POST'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
                 $this->redirect('/login');
             }
         } else {

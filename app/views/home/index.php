@@ -34,14 +34,14 @@ include_once __DIR__ . '/../nav.php';
     <div class="container mt-5 d-flex justify-content-center">
         <div class="row d-flex justify-content-center">
             <div class="col-md-4 review">
-                <figure><img src="https://media-exp1.licdn.com/dms/image/C5603AQEf6jl-bm5hRg/profile-displayphoto-shrink_800_800/0/1517683024186?e=1645660800&v=beta&t=E3x3Z0G1eOvnDfhxcJcvC2DPMzCURtCurwEqPhEIE54" class="col-md-3 photo" alt="Picture of Peter Stikker"></figure>
+                <figure><img src="https://media-exp1.licdn.com/dms/image/C5603AQEf6jl-bm5hRg/profile-displayphoto-shrink_800_800/0/1517683024186?e=1653523200&v=beta&t=sPqvxY2svi9Coxs5JuPu-Lcaix7UFz9k6XssTfDoJaY" class="col-md-3 photo" alt="Picture of Peter Stikker"></figure>
                 <h1>Peter Stikker</h1>
                 <p>I got an amazing harecut! Definitely recommended!</p>
                 <div class="mt-1"><i class="star fa-solid fa-star"></i><i class="star fa-solid fa-star"></i><i class="star fa-solid fa-star"></i><i class="star fa-solid fa-star"></i><i class="star fa-solid fa-star"></i></p>
                 </div>
             </div>
             <div class="col-md-4 review">
-                <figure><img src="https://media-exp1.licdn.com/dms/image/C5603AQG0kr7QQrDy6A/profile-displayphoto-shrink_800_800/0/1517405413641?e=1645660800&v=beta&t=pCDTlJCaEC1RxmdkoC92jB5TcdLySYLnv0OMLDIH_OQ" class="col-md-3 photo" alt="Picture of Niels van der Zwet"></figure>
+                <figure><img src="https://media-exp1.licdn.com/dms/image/C5603AQG0kr7QQrDy6A/profile-displayphoto-shrink_800_800/0/1517405413641?e=1653523200&v=beta&t=bzdUsyb4WlDsgFB0PCvvSWg12Owze1CKVmgPqmJZam4" class="col-md-3 photo" alt="Picture of Niels van der Zwet"></figure>
                 <h1>Niels van der Zwet</h1>
                 <p>I had the time of my life! Very friendly staff and I left looking like a bunny!
                 <div class="mt-1"><i class="star fa-solid fa-star"></i><i class="star fa-solid fa-star"></i><i class="star fa-solid fa-star"></i><i class="star fa-solid fa-star"></i><i class="star fa-solid fa-star"></i></p>

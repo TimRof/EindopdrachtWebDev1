@@ -121,10 +121,12 @@ class AppointmentController extends Controller
             $id = $_SESSION['user_id'];
             $this->appointmentService = new AppointmentService();
             try {
-                if ($this->appointmentService->makeAppointment($_POST['type-options'], $timeslot, $id)) {
-                    $this->redirect('/appointment/success');
-                } else {
-                    $this->redirect('/appointment/failed');
+                if (is_numeric($_POST['type-options'])) {
+                    if ($this->appointmentService->makeAppointment($_POST['type-options'], $timeslot, $id)) {
+                        $this->redirect('/appointment/success');
+                    } else {
+                        $this->redirect('/appointment/failed');
+                    }
                 }
             } catch (\Throwable $th) {
                 $this->redirect('/appointment/failed');
@@ -134,17 +136,18 @@ class AppointmentController extends Controller
     public function update()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $_POST['id'];
-            $type = $_POST['type'];
-            $this->appointmentService = new AppointmentService();
-            $this->appointmentService->updateAppointment($type, $id);
+            if (is_numeric($_POST['id']) && is_numeric($_POST['type'])) {
+                $id = $_POST['id'];
+                $type = $_POST['type'];
+                $this->appointmentService = new AppointmentService();
+                $this->appointmentService->updateAppointment($type, $id);
+            }
         }
     }
     public function delete()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            var_dump($_POST);
-            $this->appointmentService->delete($_POST['id']);
+            $this->appointmentService->delete(json_decode($_POST['json'])->id);
         }
     }
     public function success()
