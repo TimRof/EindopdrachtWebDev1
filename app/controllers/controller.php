@@ -14,4 +14,12 @@ abstract class Controller
         header('Location: http://' . $_SERVER['HTTP_HOST'] . $url, true, 303);
         exit;
     }
+    // sanitize form data
+    function clean($data)
+    {
+        $data = htmlspecialchars($data);
+        $data = stripslashes($data);
+        $data = trim($data);
+        return $data;
+    }
 }

@@ -18,7 +18,13 @@ class SignUpController extends Controller
     public function create()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $user = new User($_POST);
+            $content = array(
+                "name" => $this->clean($_POST['name']),
+                "email" => filter_var($_POST['email'], FILTER_SANITIZE_EMAIL),
+                "password" => $this->clean($_POST['password']),
+                "password_confirmation" => $this->clean($_POST['password_confirmation'])
+            );
+            $user = new User($content);
             $userService = new UserService();
             try {
                 if ($userService->insert($user)) {
